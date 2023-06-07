@@ -59,6 +59,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 
 header {
@@ -148,9 +149,29 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
+.filter_button {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.filter_button .button_appearance {
+	background-color: transparent;
+	color: #1D6154;
+	min-width: 100px;
+	height: 37px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	font-family: 'Syne';
+}
+
+.button_appearance:hover {
+	background-color: #1D6154;
+	color: white;
+}
+
 .gallery img {
 	width: 100%;
-
 }
 
 #contact {
