@@ -1,4 +1,8 @@
 const gallery = document.querySelector(".gallery");
+const filterAll = document.querySelector("#all");
+const filterObjects = document.querySelector("#objects");
+const filterApartments = document.querySelector("#apartments");
+const filterHotelsApartments = document.querySelector("#hotels-and-restaurants");
 
 // Récupération de la liste par Postman //
 fetch("http://localhost:5678/api/works")
@@ -21,16 +25,43 @@ fetch("http://localhost:5678/api/works")
         }
 });
 
-// Création du boutton "tous" //
+// Création eventListener boutton "tous" //
+filterAll.addEventListener('click', function() {
+    if (actualJsonListeGalley === jsonListeGallery) {
+        // Ne rien faire //
+    } else {
+        // CHanger la liste et actualisé la page //
+    }
+});
 
-// Création du boutton "objets" //
+// Création  eventListener "objets" //
+filterObjects.addEventListener('click', function() {
+    if (actualJsonListeGalley === jsonListeGalleryObjects) {
+        // Ne rien faire //
+    } else {
+        // CHanger la liste et actualisé la page //
+    }
+});
 
-// Création du boutton "appartements" //
+// Création eventListener "appartements" //
+filterApartments.addEventListener('click', function() {
+    if (actualJsonListeGalley === jsonListeGalleryApartments) {
+        // Ne rien faire //
+    } else {
+        // CHanger la liste et actualisé la page //
+    }
+});
 
-// Création du boutton "hôtels & restaurants" //
+// Création eventListener "hôtels & restaurants" //
+filterHotelsApartments.addEventListener('click', function() {
+    if (actualJsonListeGalley === jsonListeGalleryHotelAndApartements) {
+        // Ne rien faire //
+    } else {
+        // CHanger la liste et actualisé la page //
+    }
+});
 
 // Test création liste "tous" //
-function addTous(articleUser)
 
 // Test création liste "Objets" //
 
