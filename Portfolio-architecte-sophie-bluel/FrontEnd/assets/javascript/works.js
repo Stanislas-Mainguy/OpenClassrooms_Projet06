@@ -1,4 +1,5 @@
 const gallery = document.querySelector(".gallery");
+
 // Récupération de la liste par Postman //
 fetch("http://localhost:5678/api/works")
     .then(data => data.json())
@@ -18,4 +19,21 @@ fetch("http://localhost:5678/api/works")
                                                            <figcaption>${title.text}</figcaption>
             `
         }
-    });
+});
+
+// Création du boutton "tous" //
+
+// Création du boutton "objets" //
+
+// Création du boutton "appartements" //
+
+// Création du boutton "hôtels & restaurants" //
+
+// Test création liste "tous" //
+function addTous(articleUser)
+
+// Test création liste "Objets" //
+
+// Test création liste "Appatements" //
+
+// Test création list "Hôtels & restaurants" //
