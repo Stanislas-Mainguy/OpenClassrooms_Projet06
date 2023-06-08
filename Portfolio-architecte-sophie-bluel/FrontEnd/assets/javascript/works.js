@@ -28,3 +28,4 @@ function createHtml() {
 }
 
 createHtml();
+console.log(createHtml);
