@@ -11,6 +11,7 @@ function getDataForHtml() {
         dataListForHtml = data;
     });
 };
+
 function getFilterForHtml() {
     fetch("http://localhost:5678/api/categories")
     .then(response => response.json())
@@ -18,8 +19,6 @@ function getFilterForHtml() {
         dataFilterListForHtml = filterData;
     });
 };
-getFilterForHtml();
-getDataForHtml();
 
 function createCardHtml(category = 0) {
     gallery.innerHTML = "";
@@ -38,8 +37,6 @@ function createCardHtml(category = 0) {
     });
 };
 
-createCardHtml();
-
 function createFilterForHtml() {
     filters.innerHTML = "";
     dataFilterListForHtml.forEach(element => {
@@ -56,3 +53,8 @@ document.querySelectorAll(".filter").forEach(element => {
         createHtml(this.dataset.categoryId);
     });
 });
+
+
+getDataForHtml();
+createCardHtml();
+getFilterForHtml();
