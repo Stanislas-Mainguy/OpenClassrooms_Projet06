@@ -27,7 +27,7 @@ function getFilterForHtml() {
     });
 };
 
-// Création des balises de filtre html //
+// Création de la balise ul dans la balise Nav //
 function createFilterForHtml() {
     const filtersList = document.createElement("ul");
     filtersList.id = "filters";
