@@ -37,7 +37,7 @@ function createFilterForHtml() {
     filtersList.innerHTML = "";
     dataFilterListForHtml.forEach(element => {
         let li = document.createElement("li");
-        li.classList.add("filter");
+        li.classList.add("filter", "button_appearance");
         li.dataset.categoryId = element.id;
         li.innerHTML = element.name;
         filtersList.appendChild(li);
