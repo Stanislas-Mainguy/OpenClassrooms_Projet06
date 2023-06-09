@@ -1,22 +1,29 @@
 // Section des variables //
 const gallery = document.querySelector(".gallery");
+const filters = document.querySelector(".filters");
 gallery.innerHTML = "";
 let dataListForHtml = [];
-let dataCardListForHtml = [];
 let dataFilterListForHtml = [];
+let dataCardListForHtml = [];
 
 // Récupération du tableau des images dans l'api //
 function getDataForHtml() {
     fetch("http://localhost:5678/api/works")
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(picturesData => {
+        dataListForHtml.push(...picturesData);
+        createCardForHtml();
+    });
 };
 
 // Récupération du tableau des filtres dans l'api //
 function getFilterForHtml() {
     fetch("http://localhost:5678/api/categories")
     .then(response => response.json())
-    .then(filterData => console.log(filterData));
+    .then(filterData => {
+        dataFilterListForHtml.push(...filterData);
+        createFilterForHtml();
+    });
 };
 
 // Création des balises de filtre html //
@@ -32,14 +39,14 @@ function createFilterForHtml() {
 };
 
 // Création de la fonction de filtre et génération des balises Html en conséquence // 
-function createCardHtml(category = 0) {
+function createCardForHtml(category = 0) {
     gallery.innerHTML = "";
     dataListForHtml.forEach(element => {
         if ( category == 0 || element.category == category) {
             let figure = document.createElement("figure");
             let img = document.createElement("img");
             let figcaption = document.createElement("figcaption");
-            img.src = element.img;
+            img.src = element.imageUrl;
             img.alt = element.title;
             figcaption.innerHTML = element.title;
             figure.appendChild(img);
@@ -49,6 +56,7 @@ function createCardHtml(category = 0) {
     });
 };
 
+
 // Création de l'eventListener sur les filtres //
 document.querySelectorAll(".filter").forEach(element => {
     element.addEventListener('click', function () {
@@ -57,5 +65,4 @@ document.querySelectorAll(".filter").forEach(element => {
 });
 
 getDataForHtml();
-createCardHtml();
 getFilterForHtml();
