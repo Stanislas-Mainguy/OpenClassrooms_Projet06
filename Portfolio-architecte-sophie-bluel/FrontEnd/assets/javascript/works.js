@@ -1,6 +1,6 @@
 // Section des variables //
 const gallery = document.querySelector(".gallery");
-const filters = document.querySelector(".filters");
+const filters = document.querySelector("#filters");
 gallery.innerHTML = "";
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
