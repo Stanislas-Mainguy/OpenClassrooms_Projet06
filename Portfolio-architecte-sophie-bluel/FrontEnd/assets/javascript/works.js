@@ -2,6 +2,7 @@
 const gallery = document.querySelector(".gallery");
 const filters = document.querySelector("#filters");
 const filtersNav = document.querySelector(".block_filters");
+const filtersList = document.querySelectorAll("#filters li");
 gallery.innerHTML = "";
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
@@ -62,9 +63,12 @@ function createCardForHtml(category = 0) {
     });
 };
 
-
 // Création de l'eventListener sur les filtres //
-
+document.querySelectorAll(".filter").forEach(element => {
+    element.addEventListener('click', function () {
+        createCardForHtml(this.dataset.categoryId);
+    });
+});
 
 getDataForHtml();
 getFilterForHtml();
