@@ -1,6 +1,7 @@
 // Section des variables //
 const gallery = document.querySelector(".gallery");
-const filters = document.querySelector("#block_filters");
+const filters = document.querySelector("#filters");
+const filtersNav = document.querySelector(".block_filters");
 gallery.innerHTML = "";
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
@@ -28,7 +29,12 @@ function getFilterForHtml() {
 
 // Création des balises de filtre html //
 function createFilterForHtml() {
-    filters.innerHTML = "";
+    const filtersList = document.createElement("ul");
+    filtersList.id = "filters";
+    filtersNav.appendChild(filtersList);
+    
+    // Création des balises li dans la balise ul //
+    filtersList.innerHTML = "";
     dataFilterListForHtml.forEach(element => {
         let li = document.createElement("li");
         li.classList.add("filter");
@@ -58,11 +64,7 @@ function createCardForHtml(category = 0) {
 
 
 // Création de l'eventListener sur les filtres //
-document.querySelectorAll(".filter").forEach(element => {
-    element.addEventListener('click', function () {
-        createHtml(this.dataset.categoryId);
-    });
-});
+
 
 getDataForHtml();
 getFilterForHtml();
