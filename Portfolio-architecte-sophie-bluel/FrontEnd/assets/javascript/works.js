@@ -68,7 +68,7 @@ document.addEventListener("click", event => {
       const categoryId = parseInt(event.target.dataset.categoryId);
       createCardForHtml(categoryId);
     }
-  });
+});
 
 getDataForHtml();
 getFilterForHtml();
