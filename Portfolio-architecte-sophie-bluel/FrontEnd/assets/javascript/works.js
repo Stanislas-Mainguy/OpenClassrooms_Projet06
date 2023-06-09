@@ -1,6 +1,6 @@
 // Section des variables //
 const gallery = document.querySelector(".gallery");
-const filters = document.querySelector("#filters");
+const filters = document.querySelector("#block_filters");
 gallery.innerHTML = "";
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
@@ -34,7 +34,7 @@ function createFilterForHtml() {
         li.classList.add("filter");
         li.dataset.categoryId = element.id;
         li.innerHTML = element.name;
-        filters.appendChild(li);
+        filtersList.appendChild(li);
     });
 };
 
