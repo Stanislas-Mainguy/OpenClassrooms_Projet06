@@ -6,7 +6,6 @@ const filtersList = document.querySelectorAll("#filters li");
 gallery.innerHTML = "";
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
-let dataCardListForHtml = [];
 
 // Récupération du tableau des images dans l'api //
 function getDataForHtml() {
@@ -64,11 +63,12 @@ function createCardForHtml(category = 0) {
 };
 
 // Création de l'eventListener sur les filtres //
-document.querySelectorAll(".filter").forEach(element => {
-    element.addEventListener('click', function () {
-        createCardForHtml(this.dataset.categoryId);
-    });
-});
+document.addEventListener("click", event => {
+    if (event.target.classList.contains("filter")) {
+      const categoryId = parseInt(event.target.dataset.categoryId);
+      createCardForHtml(categoryId);
+    }
+  });
 
 getDataForHtml();
 getFilterForHtml();
