@@ -150,14 +150,14 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-.filter_button {
+.block_filters {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
 	margin-bottom: 51px;
 }
 
-.filter_button .button_appearance {
+.block_filters .button_appearance {
 	background-color: transparent;
 	color: #1D6154;
 	min-width: 100px;
