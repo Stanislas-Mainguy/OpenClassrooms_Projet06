@@ -153,8 +153,17 @@ li:hover {
 .block_filters {
 	display: flex;
 	justify-content: center;
-	gap: 10px;
 	margin-bottom: 51px;
+}
+
+.block_filters ul {
+	gap: 10px;
+}
+
+.block_filters ul li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .block_filters .button_appearance {
