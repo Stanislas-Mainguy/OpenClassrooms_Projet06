@@ -244,13 +244,13 @@ footer nav ul {
 }
 
 /* Modifications pour la page Login */
-#login_page {
+.login_page {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-#login_page h2 {
+.login_page h2 {
 	margin-bottom: 37px;
 }
 
@@ -268,7 +268,7 @@ footer nav ul {
 	border: none;
 }
 
-#login_page .button_appearance {
+.login_page .button_appearance {
 	min-width: 179px;
 	background-color: #1D6154;
 	color: #FFFFFF;
