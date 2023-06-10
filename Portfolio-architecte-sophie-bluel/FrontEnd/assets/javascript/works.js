@@ -51,7 +51,7 @@ function createFilterForHtml() {
 function createCardForHtml(category = 0) {
     gallery.innerHTML = "";
     dataListForHtml.forEach(element => {
-        if ( category == 0 || element.category == category) {
+        if ( category === 0 || element.category === category) {
             let figure = document.createElement("figure");
             let img = document.createElement("img");
             let figcaption = document.createElement("figcaption");
