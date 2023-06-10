@@ -38,6 +38,12 @@ function createFilterForHtml() {
         li.dataset.categoryId = element.id;
         li.innerHTML = element.name;
         filtersList.appendChild(li);
+
+        // Ajout de l'eventListener sur les filtres //
+        li.addEventListener('click', function () {
+            const categoryId = parseInt(this.dataset.categoryId);
+            createCardForHtml(categoryId);
+        });
     });
 };
 
@@ -58,14 +64,6 @@ function createCardForHtml(category = 0) {
         };
     });
 };
-
-// Création de l'eventListener sur les filtres //
-document.querySelectorAll(".filter").forEach(element => {
-    element.addEventListener('click', function () {
-      const categoryId = parseInt(this.dataset.categoryId);
-      createCardForHtml(categoryId);
-    });
-});
 
 getDataForHtml();
 getFilterForHtml();
