@@ -69,4 +69,3 @@ function createCardForHtml(category = 0) {
 
 getDataForHtml();
 getFilterForHtml();
-createFilterForHtml();
