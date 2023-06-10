@@ -244,4 +244,12 @@ footer nav ul {
 }
 
 /* Modifications pour la page Login */
-m
+#login_page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#login_page h2 {
+	margin-bottom: 37px;
+}
