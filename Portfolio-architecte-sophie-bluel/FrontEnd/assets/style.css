@@ -166,7 +166,7 @@ li:hover {
 	align-items: center;
 }
 
-.block_filters .button_appearance {
+.button_appearance {
 	background-color: transparent;
 	color: #1D6154;
 	min-width: 100px;
@@ -176,7 +176,7 @@ li:hover {
 	font-family: 'Syne';
 }
 
-.button_appearance:hover {
+.filter:hover, .filter:active {
 	background-color: #1D6154;
 	color: white;
 	cursor: pointer;
