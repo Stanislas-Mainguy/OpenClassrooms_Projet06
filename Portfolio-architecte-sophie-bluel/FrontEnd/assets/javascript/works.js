@@ -1,9 +1,6 @@
 // Section des variables //
 const gallery = document.querySelector(".gallery");
-const filters = document.querySelector("#filters");
 const filtersNav = document.querySelector(".block_filters");
-const filtersList = document.querySelectorAll("#filters li");
-gallery.innerHTML = "";
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
 
@@ -48,7 +45,7 @@ function createFilterForHtml() {
 function createCardForHtml(category = 0) {
     gallery.innerHTML = "";
     dataListForHtml.forEach(element => {
-        if ( category === 0 || element.category === category) {
+        if ( category === 0 || element.category === parseInt(category)) {
             let figure = document.createElement("figure");
             let img = document.createElement("img");
             let figcaption = document.createElement("figcaption");
@@ -64,9 +61,11 @@ function createCardForHtml(category = 0) {
 
 // Création de l'eventListener sur les filtres //
 document.querySelectorAll(".filter").forEach(element => {
-    element.addEventListener('click', function() {
-        createCardForHtml(this.dataset.categoryId);
+    element.addEventListener('click', function () {
+      const categoryId = parseInt(this.dataset.categoryId);
+      createCardForHtml(categoryId);
     });
 });
+
 getDataForHtml();
 getFilterForHtml();
