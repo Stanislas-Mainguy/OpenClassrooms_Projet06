@@ -4,7 +4,7 @@ const filtersNav = document.querySelector(".block_filters");
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
 
-// Récupération du tableau des images dans l'api //
+// Récupération du tableau des images dans l'API //
 function getDataForHtml() {
     fetch("http://localhost:5678/api/works")
     .then(response => response.json())
@@ -14,7 +14,7 @@ function getDataForHtml() {
     });
 };
 
-// Récupération du tableau des filtres dans l'api //
+// Récupération du tableau des filtres dans l'API //
 function getFilterForHtml() {
     fetch("http://localhost:5678/api/categories")
     .then(response => response.json())
@@ -24,13 +24,13 @@ function getFilterForHtml() {
     });
 };
 
-// Création de la balise ul dans la balise Nav //
+// Création de la balise <ul></ul> dans la balise <nav></nav> //
 function createFilterForHtml() {
     const filtersList = document.createElement("ul");
     filtersList.id = "filters";
     filtersNav.appendChild(filtersList);
     
-    // Création des balises li dans la balise ul //
+    // Création des balises <li></li> dans la balise <ul></ul> //
     filtersList.innerHTML = "";
     dataFilterListForHtml.forEach(element => {
         let li = document.createElement("li");
@@ -49,7 +49,7 @@ function createFilterForHtml() {
     });
 };
 
-// Création de la fonction de filtre et génération des balises Html en conséquence // 
+// Création de la fonction de filtre et la génération des balises html en conséquence // 
 function createCardForHtml(category = 0) {
     gallery.innerHTML = "";
     dataListForHtml.forEach(element => {
@@ -67,5 +67,6 @@ function createCardForHtml(category = 0) {
     });
 };
 
+// Appel des fonctions pour générer les filtres et la galerie des photos actualiser //
 getDataForHtml();
 getFilterForHtml();
