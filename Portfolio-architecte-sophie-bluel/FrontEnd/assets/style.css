@@ -142,6 +142,7 @@ li:hover {
 	margin-bottom: 1em;
 }
 
+/* Class pour la galerie */
 .gallery {
 	width: 100%;
 	display: grid;
@@ -185,6 +186,7 @@ li:hover {
 .gallery img {
 	width: 100%;
 }
+/* Fin de la section css pour la galerie */
 
 #contact {
 	width: 50%;
