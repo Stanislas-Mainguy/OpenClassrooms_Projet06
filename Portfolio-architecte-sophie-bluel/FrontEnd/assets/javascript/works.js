@@ -67,6 +67,6 @@ function createCardForHtml(category = 0) {
     });
 };
 
-// Appel des fonctions pour générer les filtres et la galerie des photos actualiser //
+// Appel des fonctions pour générer les filtres et la galerie des photos actualisés //
 getDataForHtml();
 getFilterForHtml();
