@@ -106,8 +106,9 @@ nav li {
 }
 
 li:hover {
-	color: #B1663C;
+	color: #000000;
 	cursor: pointer;
+	font-weight: 600;
 }
 
 #introduction {
