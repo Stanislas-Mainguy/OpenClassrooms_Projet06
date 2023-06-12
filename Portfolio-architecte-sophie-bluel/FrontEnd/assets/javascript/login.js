@@ -6,6 +6,15 @@ const emailError = document.querySelector("#email-error");
 const passwordError = document.querySelector("#password-error");
 const loginError = document.querySelector("#login-error");
 
+// Section des fonctions //
+function validateEmailFormat(email) {
+  return email.includes("sophie.bluel@test.tld");
+}
+
+function validatePasswordFormat(password) {
+  return password.includes("S0phie");
+}
+
 // Création de l'eventListener avec ses sous-sections //
 loginButton.addEventListener("click", function () {
   const email = emailInput.value;
@@ -59,13 +68,3 @@ loginButton.addEventListener("click", function () {
       emailError.textContent = error.message;
     });
 });
-
-// Fonction pour vérifier la validité de l'e-mail //
-function validateEmailFormat(email) {
-  return email.includes("sophie.bluel@test.tld");
-}
-
-// Fonction pour vérifier la validité du mot de passe //
-function validatePasswordFormat(password) {
-  return password.includes("S0phie");
-}
