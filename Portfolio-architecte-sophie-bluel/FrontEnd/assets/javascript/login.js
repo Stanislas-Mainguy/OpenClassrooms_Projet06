@@ -27,8 +27,10 @@ loginButton.addEventListener("click", function () {
     .then((response) => {
       if (response.ok) {
         return response.json();
+      } else if (response.status === 401) {
+        throw new Error("Invalid email or password");
       } else {
-        throw new Error("Les informations d'identification sont incorrectes.");
+        throw new Error("An error occurred during login");
       }
     })
     // Stockage du token et redirection vers la page d'accueil //
@@ -37,6 +39,12 @@ loginButton.addEventListener("click", function () {
       window.location.href = "./index.html";
     })
     .catch((error) => {
-      errorMessage.textContent = error.message;
+      const errorMessageText = error.message;
+      if (errorMessageText === "Invalid email or password") {
+        emailError.textContent = "L'e-mail n'est pas valide";
+        passwordError.textContent = "Le mot de passe est incorrect";
+      } else {
+        errorMessage.textContent = errorMessageText;
+      }
     });
 });
