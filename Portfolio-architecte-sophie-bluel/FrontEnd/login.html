@@ -25,17 +25,20 @@
 	</header>
 	<main class="login_page">
 		<h2>Login</h2>
-        <form>
+        <form id="login_form">
             <div class="block_login">
                 <label for="email">E-mail</label>
                 <input type="email" id="email" name="email">
+				<div id="email-error" class="error"></div>
             </div>
             <div class="block_login">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password">
+				<div id="password-error" class="error"></div>
             </div>
+			<div id="error-message" class="error-message"></div>
         </form>
-        <button class="button_appearance" type="submit">Se connecter</button>
+        <button id="login_button" class="button_appearance" type="submit">Se connecter</button>
         <a href="#" id="forgot-password">Mot de passe oublié</a>
 	</main>
 	<footer>
