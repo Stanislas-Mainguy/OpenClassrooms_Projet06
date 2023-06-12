@@ -11,10 +11,10 @@ loginButton.addEventListener("click", function () {
   const email = emailInput.value;
   const password = passwordInput.value;
   
+  // Conditions pour les messages d'erreur //
   emailError.textContent = "";
   passwordError.textContent = "";
   loginError.textContent = "";
-  
   const isEmailValid = validateEmailFormat(email);
   const isPasswordValid = validatePasswordFormat(password);
 
@@ -22,12 +22,10 @@ loginButton.addEventListener("click", function () {
     loginError.textContent = "L'e-mail et le mot de passe ne sont pas valides.";
     return;
   }
-
   if (!isEmailValid) {
     emailError.textContent = "L'e-mail n'est pas valide.";
     return;
   }
-
   if (!isPasswordValid) {
     passwordError.textContent = "Le mot de passe n'est pas valide.";
     return;
@@ -54,7 +52,7 @@ loginButton.addEventListener("click", function () {
       localStorage.setItem("token", data.token);
       window.location.href = "./index.html";
     })
-    // Affichage du message d'erreur
+    // Affichage du message d'erreur //
     .catch((error) => {
       loginError.textContent = error.message;
       passwordError.textContent = error.message;
@@ -62,12 +60,12 @@ loginButton.addEventListener("click", function () {
     });
 });
 
-// Fonction pour vérifier la validité de l'e-mail
+// Fonction pour vérifier la validité de l'e-mail //
 function validateEmailFormat(email) {
   return email.includes("sophie.bluel@test.tld");
 }
 
-// Fonction pour vérifier la validité du mot de passe
+// Fonction pour vérifier la validité du mot de passe //
 function validatePasswordFormat(password) {
   return password.includes("S0phie");
 }
