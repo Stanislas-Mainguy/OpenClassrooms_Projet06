@@ -6,9 +6,6 @@ const errorMessage = document.querySelector("#error-message");
 const emailError = document.querySelector("#email-error");
 const passwordError = document.querySelector("#password-error");
 
-// Vérifier si l'utilisateur est déjà connecté ou non //
-checkAuthentication();
-
 // Création de l'eventListener avec ses sous-sections //
 loginButton.addEventListener("click", function () {
   const email = emailInput.value;
@@ -25,7 +22,6 @@ loginButton.addEventListener("click", function () {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email: email, password: password }),
-    credentials: "same-origin",
   })
     // Récupération du token depuis l'API //
     .then((response) => {
@@ -44,13 +40,3 @@ loginButton.addEventListener("click", function () {
       errorMessage.textContent = error.message;
     });
 });
-
-// Fonction pour vérifier si l'utilisateur est connecté //
-function checkAuthentication() {
-  const token = localStorage.getItem("token");
-  if (token) {
-    console.log("Utilisateur connecté");
-  } else {
-    console.log("Utilisateur non connecté");
-  }
-}
