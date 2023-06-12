@@ -2,18 +2,36 @@
 const loginButton = document.querySelector("#login_button");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
-const errorMessage = document.querySelector("#error-message");
 const emailError = document.querySelector("#email-error");
 const passwordError = document.querySelector("#password-error");
+const loginError = document.querySelector("#login-error");
 
 // Création de l'eventListener avec ses sous-sections //
 loginButton.addEventListener("click", function () {
   const email = emailInput.value;
   const password = passwordInput.value;
+  
   emailError.textContent = "";
   passwordError.textContent = "";
-  emailInput.classList.remove("error");
-  passwordInput.classList.remove("error");
+  loginError.textContent = "";
+  
+  const isEmailValid = validateEmailFormat(email);
+  const isPasswordValid = validatePasswordFormat(password);
+
+  if (!isEmailValid && !isPasswordValid) {
+    loginError.textContent = "L'e-mail et le mot de passe ne sont pas valides.";
+    return;
+  }
+
+  if (!isEmailValid) {
+    emailError.textContent = "L'e-mail n'est pas valide.";
+    return;
+  }
+
+  if (!isPasswordValid) {
+    passwordError.textContent = "Le mot de passe n'est pas valide.";
+    return;
+  }
 
   // Envoie de la requête de connection à L'API //
   fetch("http://localhost:5678/api/users/login", {
@@ -28,9 +46,7 @@ loginButton.addEventListener("click", function () {
       if (response.ok) {
         return response.json();
       } else if (response.status === 401) {
-        throw new Error("Invalid email or password");
-      } else {
-        throw new Error("An error occurred during login");
+        throw new Error("Le mot de passe est incorret.");
       }
     })
     // Stockage du token et redirection vers la page d'accueil //
@@ -38,13 +54,20 @@ loginButton.addEventListener("click", function () {
       localStorage.setItem("token", data.token);
       window.location.href = "./index.html";
     })
+    // Affichage du message d'erreur
     .catch((error) => {
-      const errorMessageText = error.message;
-      if (errorMessageText === "Invalid email or password") {
-        emailError.textContent = "L'e-mail n'est pas valide";
-        passwordError.textContent = "Le mot de passe est incorrect";
-      } else {
-        errorMessage.textContent = errorMessageText;
-      }
+      loginError.textContent = error.message;
+      passwordError.textContent = error.message;
+      emailError.textContent = error.message;
     });
 });
+
+// Fonction pour vérifier la validité de l'e-mail
+function validateEmailFormat(email) {
+  return email.includes("sophie.bluel@test.tld");
+}
+
+// Fonction pour vérifier la validité du mot de passe
+function validatePasswordFormat(password) {
+  return password.includes("S0phie");
+}
