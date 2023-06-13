@@ -18,19 +18,6 @@ loginButton.addEventListener("click", function () {
   const isEmailValid = validateEmailFormat(email);
   const isPasswordValid = validatePasswordFormat(password);
 
-  if (!isEmailValid && !isPasswordValid) {
-    loginError.textContent = "L'e-mail et le mot de passe ne sont pas valides.";
-    return;
-  }
-  if (!isEmailValid) {
-    emailError.textContent = "L'e-mail n'est pas valide.";
-    return;
-  }
-  if (!isPasswordValid) {
-    passwordError.textContent = "Le mot de passe n'est pas valide.";
-    return;
-  }
-
   // Envoie de la requête de connection à L'API //
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",
@@ -43,8 +30,8 @@ loginButton.addEventListener("click", function () {
     .then((response) => {
       if (response.ok) {
         return response.json();
-      } else if (response.status === 401) {
-        throw new Error("Le mot de passe est incorret.");
+      } else if (response.status === 401 || response.status === 404) {
+        throw new Error("Erreur d'e-mail/et/ou/ de mot de passe.");
       }
     })
     // Stockage du token et redirection vers la page d'accueil //
