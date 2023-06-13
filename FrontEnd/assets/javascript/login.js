@@ -2,21 +2,14 @@
 const loginButton = document.querySelector("#login_button");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
-const emailError = document.querySelector("#email-error");
-const passwordError = document.querySelector("#password-error");
 const loginError = document.querySelector("#login-error");
 
 // Création de l'eventListener avec ses sous-sections //
-loginButton.addEventListener("click", function () {
+loginButton.addEventListener("click", function (event) {
+  event.preventDefault();
   const email = emailInput.value;
   const password = passwordInput.value;
-  
-  // Conditions pour les messages d'erreur //
-  emailError.textContent = "";
-  passwordError.textContent = "";
   loginError.textContent = "";
-  const isEmailValid = validateEmailFormat(email);
-  const isPasswordValid = validatePasswordFormat(password);
 
   // Envoie de la requête de connection à L'API //
   fetch("http://localhost:5678/api/users/login", {
@@ -31,7 +24,7 @@ loginButton.addEventListener("click", function () {
       if (response.ok) {
         return response.json();
       } else if (response.status === 401 || response.status === 404) {
-        throw new Error("Erreur d'e-mail/et/ou/ de mot de passe.");
+        throw new Error("Erreur d'e-mail et/ou de mot de passe.");
       }
     })
     // Stockage du token et redirection vers la page d'accueil //
@@ -42,7 +35,5 @@ loginButton.addEventListener("click", function () {
     // Affichage du message d'erreur //
     .catch((error) => {
       loginError.textContent = error.message;
-      passwordError.textContent = error.message;
-      emailError.textContent = error.message;
     });
 });
