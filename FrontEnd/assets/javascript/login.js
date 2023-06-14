@@ -31,6 +31,14 @@ loginButton.addEventListener("click", function (event) {
     .then((data) => {
       localStorage.setItem("token", data.token);
       window.location.href = "./index.html";
+
+      const adminEdit = document.querySelector("#edit-mode");
+      const adminEdit2 = document.querySelector(".edit-container");
+      const adminEdit3 = document.querySelector(".edit-container2");
+
+      adminEdit.style.display = "flex";
+      adminEdit2.style.display = "block";
+      adminEdit3.style.display = "block";
     })
     // Affichage du message d'erreur //
     .catch((error) => {
