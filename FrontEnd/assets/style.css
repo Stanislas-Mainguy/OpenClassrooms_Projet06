@@ -325,3 +325,20 @@ footer nav ul {
 	padding-left: 21px;
 	padding-right: 21px;
 }
+
+.edit-container {
+	width: 80%;
+	margin: auto;
+	margin-top: 15px;
+}
+
+.admin-project-edit {
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+	justify-content: center;
+}
+
+.edit-container2 {
+	padding-top: 9px;
+}
