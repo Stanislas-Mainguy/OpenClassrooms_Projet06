@@ -70,3 +70,21 @@ function createCardForHtml(category = 0) {
 // Appel des fonctions pour générer les filtres et la galerie des photos actualisés //
 getDataForHtml();
 getFilterForHtml();
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const token = localStorage.getItem("token");
+  
+    if (token) {
+  
+      const editModeSection = document.querySelector("#edit-mode");
+      const editContainer1 = document.querySelector(".edit-container");
+      const editContainer2 = document.querySelector(".edit-container2");
+      const editFiltres = document.querySelector("#filters")
+  
+      editModeSection.style.display = "flex";
+      editContainer1.style.display = "block";
+      editContainer2.style.display = "block";
+      editFiltres.style.display = "none";
+    }
+  });

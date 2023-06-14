@@ -307,7 +307,7 @@ footer nav ul {
 
 /* Page d'accueil admin */
 #edit-mode {
-	display: flex;
+	display: none;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -316,6 +316,7 @@ footer nav ul {
 	height: 59px;
 	background-color: #000000;
 	color: #FFFFFF;
+	margin-top: 0px;
 }
 
 #edit-mode .button_appearance {
@@ -330,6 +331,7 @@ footer nav ul {
 	width: 80%;
 	margin: auto;
 	margin-top: 15px;
+	display: none;
 }
 
 .admin-project-edit {
@@ -341,9 +343,5 @@ footer nav ul {
 
 .edit-container2 {
 	padding-top: 9px;
-}
-
-#edit-mode .admin
-#filters .admin {
 	display: none;
 }
