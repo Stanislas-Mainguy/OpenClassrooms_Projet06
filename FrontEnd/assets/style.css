@@ -343,8 +343,7 @@ footer nav ul {
 	padding-top: 9px;
 }
 
-#edit-mode,
-.edit-container,
-.edit-container2 {
+#edit-mode .admin
+#filters .admin {
 	display: none;
 }
