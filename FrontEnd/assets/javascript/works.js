@@ -71,10 +71,11 @@ function createCardForHtml(category = 0) {
 getDataForHtml();
 getFilterForHtml();
 
+// Vérification du token dans le localStorage //
 document.addEventListener("DOMContentLoaded", function() {
-    
     const token = localStorage.getItem("token");
-  
+    
+    // Si présence d'un token, changement de style pour les éléments suivant //
     if (token) {
         const editLogin = document.querySelector("#login_logout");
         const editModeSection = document.querySelector("#edit-mode");
