@@ -304,3 +304,24 @@ footer nav ul {
 .error {
 	color: red;
 }
+
+/* Page d'accueil admin */
+#edit-mode {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 21px;
+	width: 100%;
+	height: 59px;
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
+#edit-mode .button_appearance {
+	background-color: #FFFFFF;
+	color: #000000;
+	font-family: 'Work Sans';
+	padding-left: 21px;
+	padding-right: 21px;
+}
