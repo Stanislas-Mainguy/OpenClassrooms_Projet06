@@ -342,3 +342,10 @@ footer nav ul {
 .edit-container2 {
 	padding-top: 9px;
 }
+
+#edit-mode,
+.edit-mode-container,
+.edit-container,
+.edit-container2 {
+	display: none;
+}
