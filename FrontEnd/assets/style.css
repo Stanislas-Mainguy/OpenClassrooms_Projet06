@@ -147,6 +147,10 @@ li:hover {
 	margin-bottom: 1em;
 }
 
+article {
+	max-width: 404px;
+}
+
 /* Class pour la galerie */
 .gallery {
 	width: 100%;
