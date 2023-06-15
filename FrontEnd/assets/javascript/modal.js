@@ -38,6 +38,7 @@ fetch("http://localhost:5678/api/works")
         elements = data;
         data.forEach((element) => {
             const img = document.createElement("img");
+            img.classList.add("modal-pictures");
             img.src = element.imageUrl;
             arrayElement.appendChild(img);
     });
