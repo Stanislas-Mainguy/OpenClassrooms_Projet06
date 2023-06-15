@@ -1,6 +1,7 @@
 // Section des variables //
 const gallery = document.querySelector(".gallery");
 const filtersNav = document.querySelector(".block_filters");
+const logout = document.querySelector("#login_logout");
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
 
@@ -93,3 +94,9 @@ document.addEventListener("DOMContentLoaded", function() {
         editHeader.style.marginTop = "97px";
     }
   });
+
+// Création de l'eventListener pour le logout //
+logout.addEventListener("click", function() {
+    localStorage.clear();
+    window.location.href = "./index.html";
+})
