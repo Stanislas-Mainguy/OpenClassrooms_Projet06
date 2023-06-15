@@ -320,10 +320,13 @@ footer nav ul {
 	height: 59px;
 	background-color: #000000;
 	color: #FFFFFF;
+	position: absolute;
+	left: 0%;
+	top: 0%;
 	margin-top: 0px;
 }
 
-#edit-mode .button_appearance {
+#publish-changes {
 	background-color: #FFFFFF;
 	color: #000000;
 	font-family: 'Work Sans';

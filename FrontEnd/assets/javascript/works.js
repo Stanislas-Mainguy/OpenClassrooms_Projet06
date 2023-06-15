@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const editContainer1 = document.querySelector(".edit-container");
         const editContainer2 = document.querySelector(".edit-container2");
         const editFiltres = document.querySelector(".block_filters")
+        const editHeader = document.querySelector("header");
         
         editLogin.innerText = "",
         editModeSection.style.display = "flex";
@@ -89,5 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
         editContainer2.style.display = "block";
         editFiltres.style.display = "none";
         editLogin.textContent = "logout";
+        editHeader.style.marginTop = "97px";
     }
   });
