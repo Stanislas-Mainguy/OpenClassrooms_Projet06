@@ -1,10 +1,17 @@
 // Section des variables //
-const modalOpenings = document.querySelectorAll(".modal-opening");
+const modalOpeningElements = document.querySelectorAll(".modal-opening");
+const modal = document.getElementById("modal");
 
-//Création d'un eventListener pour ouvreture de la modal sur chaque bouton de modif //
-modalOpenings.forEach((element) => {
-    element.addEventListener("click", () => {
-        const modal = document.getElementById("modal");
-        modal.style.display = "flex";
+// Section des fonctions //
+
+    // Fonction d'ouverture du modal //
+    function openModal() {
+    modal.style.display = "flex";
+    };
+
+// Section des eventListener //
+
+    // Ouverture du modal //
+    modalOpeningElements.forEach((element) => {
+    element.addEventListener("click", openModal);
     });
-  });
