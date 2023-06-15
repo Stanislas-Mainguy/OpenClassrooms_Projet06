@@ -13,15 +13,15 @@
 
 <body>
 	<section id="edit-mode" class="admin">
-		<div class="edit-mode-container">
+		<div class="edit-mode-container modal-opening">
 			<i class="fa-regular fa-pen-to-square"></i>
 			<span>Mode édition</span>
 		</div>
 		<button id="publish-changes" class="button_appearance" type="button">Publier les changements</button>
 	</section>
-	<aside id="modal" aria-hidden="true" role="application">
+	<aside id="modal" class="modal-opening" aria-hidden="true" role="application">
 		<div class="modal-content">
-			<button id="close-modal">Fermer</button>
+			<i id="close-modal" class="fa-regular fa-xmark"></i>
 			<h2>Galerie photo</h2>
 			<div id="array-element"></div>
 			<div id="color-bar"></div>
@@ -44,7 +44,7 @@
 		<div id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
-				<div class="edit-container admin">
+				<div class="edit-container admin modal-opening">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<span>modifier</span>
 				</div>
@@ -59,7 +59,7 @@
 		<section id="portfolio">
 			<div class="admin-project-edit">
 				<h2>Mes Projets</h2>
-				<div class="edit-container2 admin">
+				<div class="edit-container2 admin modal-opening">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<span>modifier</span>
 				</div>
