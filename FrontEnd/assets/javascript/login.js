@@ -1,4 +1,4 @@
-// Section des variables
+// Section des variables //
 const loginButton = document.querySelector("#login_button");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
@@ -37,7 +37,3 @@ loginButton.addEventListener("click", function (event) {
       loginError.textContent = error.message;
     });
 });
-
-if (localStorage.getItem("token")) {
-  window.location.href = "./index.html";
-}
