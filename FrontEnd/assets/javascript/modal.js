@@ -37,9 +37,16 @@ fetch("http://localhost:5678/api/works")
     .then((data) => {
         elements = data;
         data.forEach((element) => {
-            const img = document.createElement("img");
+            let figure = document.createElement("figure");
+            let img = document.createElement("img");
+            let figcaption = document.createElement("figcaption");
+            figure.classList.add("modal-figures");
             img.classList.add("modal-pictures");
             img.src = element.imageUrl;
-            arrayElement.appendChild(img);
+            img.alt = element.title;
+            figcaption.innerHTML = "éditer";
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            arrayElement.appendChild(figure);      
     });
 });
