@@ -433,6 +433,8 @@ footer nav ul {
 	background-color: #1D6154;
 	color: #FFFFFF;
 	padding: 10px 49px;
+	font-family: 'Syne';
+	font-size: 14px;
 }
 
 .delete-button {
@@ -440,4 +442,6 @@ footer nav ul {
 	text-decoration: none;
 	border: none;
 	background-color: transparent;
+	font-family: 'Syne';
+	font-size: 14px;
 }
