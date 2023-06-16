@@ -2,6 +2,11 @@
 const gallery = document.querySelector(".gallery");
 const filtersNav = document.querySelector(".block_filters");
 const logout = document.querySelector("#login_logout");
+const modalOpeningElements = document.querySelectorAll(".modal-opening");
+const modal = document.querySelector("#modal");
+const closeModal = document.querySelectorAll(".close-modal");
+const arrayElement = document.querySelector("#array-element");
+const overlay = document.querySelector("#overlay");
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
 
@@ -72,6 +77,10 @@ function createCardForHtml(category = 0) {
 getDataForHtml();
 getFilterForHtml();
 
+
+
+                    // SECTION POUR ALLER SUR LA PAGE DE L'ADMIN //
+
 // Vérification du token dans le localStorage //
 document.addEventListener("DOMContentLoaded", function() {
     const token = localStorage.getItem("token");
@@ -103,3 +112,40 @@ logout.addEventListener("click", function() {
     localStorage.clear();
     window.location.href = "./index.html";
 })
+
+
+
+                            // SECTION POUR LA MODAL //
+
+// Section des eventListener //
+
+    // Ouverture du modal //
+    modalOpeningElements.forEach(function(element) {
+        element.addEventListener("click", function() {
+            modal.style.display = "block";
+            overlay.style.display = "block";  
+        });
+    });
+
+    // Fermeture du modal //
+    closeModal.forEach(function(element) {
+        element.addEventListener("click", function() {
+            modal.style.display = "none";
+            overlay.style.display = "none";
+        });
+    });
+
+// Section de création de l'affichage des photos //
+dataListForHtml.forEach((element) => {
+    let figure = document.createElement("figure");
+    let img = document.createElement("img");
+    let figcaption = document.createElement("figcaption");
+    figure.classList.add("modal-figures");
+    img.classList.add("modal-pictures");
+    img.src = element.imageUrl;
+    img.alt = element.title;
+    figcaption.innerHTML = "éditer";
+    figure.appendChild(img);
+    figure.appendChild(figcaption);
+    arrayElement.appendChild(figure);
+});
