@@ -371,7 +371,7 @@ footer nav ul {
 	display: none;
 	background-color: #FFFFFF;
 	box-sizing: border-box;
-	padding: 26px 30px 48px ;
+	padding: 26px 30px 48px 104px;
 	flex-direction: column;
 	border-radius: 10px;
 	
@@ -420,4 +420,24 @@ footer nav ul {
 .modal-pictures {
 	width: 100%;
 	object-fit: cover;
+}
+
+.block-button {
+	display: flex;
+	flex-direction: column;
+	gap: 23px;
+	margin-top: 38px;
+}
+
+.add-button {
+	background-color: #1D6154;
+	color: #FFFFFF;
+	padding: 10px 49px;
+}
+
+.delete-button {
+	color: #D65353;
+	text-decoration: none;
+	border: none;
+	background-color: transparent;
 }
