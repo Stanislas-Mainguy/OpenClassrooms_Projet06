@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const editContainer2 = document.querySelector(".edit-container2");
         const editFiltres = document.querySelector(".block_filters")
         const editHeader = document.querySelector("header");
+        const editH2Project = document.querySelector(".admin-project-edit");
         
         editLogin.innerText = "",
         editModeSection.style.display = "flex";
@@ -92,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function() {
         editFiltres.style.display = "none";
         editLogin.textContent = "logout";
         editHeader.style.marginTop = "97px";
+        editH2Project.style.marginBottom = "92px";
+        editH2Project.style.marginTop = "108px";
     }
   });
 
