@@ -358,6 +358,7 @@ footer nav ul {
 	padding-top: 9px;
 	display: none;
 	cursor: pointer;
+	margin-right: -90px;
 }
 
 /* Section du modal */
