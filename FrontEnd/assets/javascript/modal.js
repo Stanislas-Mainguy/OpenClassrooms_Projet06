@@ -4,6 +4,7 @@ const modal = document.querySelector("#modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const arrayElement = document.querySelector("#array-element");
 const overlay = document.querySelector("#overlay");
+const closeModalIcons = document.querySelectorAll(".close-modal-icon");
 let arrayPictures = [];
 
 // Section des eventListener //
@@ -32,6 +33,14 @@ let arrayPictures = [];
             document.body.classList.remove("close-modal");
             overlay.style.display = "none";
         }
+    });
+
+    closeModalIcons.forEach((icon) => {
+        icon.addEventListener("click", () => {
+            modal.style.display = "none";
+            document.body.classList.remove("close-modal-icon");
+            overlay.style.display = "none";
+        });
     });
 
 // Appel à L'API pour affichage des photos et créations des balises <img></img> //
