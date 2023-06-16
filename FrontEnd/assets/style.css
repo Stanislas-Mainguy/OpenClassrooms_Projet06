@@ -375,7 +375,6 @@ footer nav ul {
 	padding: 26px 30px 48px 104px;
 	flex-direction: column;
 	border-radius: 10px;
-	
 }
 
 .block-icon {
@@ -472,4 +471,4 @@ footer nav ul {
 	background: rgba(0, 0, 0, 0.3);
 	z-index: 9998;
 	display: none;
-  }
+}

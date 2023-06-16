@@ -12,16 +12,8 @@
 </head>
 
 <body>
-	<div id="edit-mode" class="admin">
-		<div class="edit-mode-container modal-opening">
-			<i class="fa-regular fa-pen-to-square"></i>
-			<span>Mode édition</span>
-		</div>
-		<button id="publish-changes" class="button_appearance" type="button">Publier les changements</button>
-	</div>
-	<div id="overlay"></div>
 	<aside id="modal" class="modal-opening" aria-hidden="true">
-		<div class="block-icon close-modal-icon">
+		<div class="block-icon close-modal">
 			<i class="fa-solid fa-xmark"></i>
 		</div>
 		<div class="modal-content">
@@ -36,6 +28,14 @@
 			</div>
 		</div>
 	</aside>
+	<div id="overlay" class="close-modal modal-opening"></div>
+	<div id="edit-mode" class="admin">
+		<div class="edit-mode-container modal-opening">
+			<i class="fa-regular fa-pen-to-square"></i>
+			<span>Mode édition</span>
+		</div>
+		<button id="publish-changes" class="button_appearance" type="button">Publier les changements</button>
+	</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
