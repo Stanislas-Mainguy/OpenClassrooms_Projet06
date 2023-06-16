@@ -387,6 +387,7 @@ footer nav ul {
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
+	margin-right: 57px;
 }
 
 .modal-title {
