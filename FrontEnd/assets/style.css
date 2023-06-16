@@ -380,7 +380,16 @@ footer nav ul {
 
 .block-icon {
 	display: flex;
-	justify-content: end;
+	justify-content: center;
+	align-items: center;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.fa-xmark {
+	text-align: center;
+	font-size: 18px;
 }
 
 .block-adding-element {
@@ -437,6 +446,7 @@ footer nav ul {
 	padding: 10px 49px;
 	font-family: 'Syne';
 	font-size: 14px;
+	cursor: pointer;
 }
 
 .delete-button {
@@ -446,6 +456,7 @@ footer nav ul {
 	background-color: transparent;
 	font-family: 'Syne';
 	font-size: 14px;
+	cursor: pointer;
 }
 .color-bar {
 	width: 100%;
