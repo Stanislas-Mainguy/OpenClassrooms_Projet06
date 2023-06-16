@@ -13,12 +13,21 @@ let arrayPictures = [];
         element.addEventListener("click", function () {
             modal.style.display = "block";
             overlay.style.display = "block";  
+            modal.classList.add("close-modal");
+            overlay.classList.add("close-modal");
         });
-      });
+    });
 
     // Fermeture du modal //
+    closeModal.forEach(function (element) {
+        element.addEventListener("click", function () {
+            modal.style.display = "none";
+            overlay.style.display = "none";
+            modal.classList.remove("close-modal");
+            overlay.classList.remove("close-modal");
+        });
+    });
     
-
 // Appel à L'API pour affichage des photos et créations des balises <img></img> //
 fetch("http://localhost:5678/api/works")
     .then((response) => response.json())

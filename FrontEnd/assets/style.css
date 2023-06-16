@@ -384,6 +384,8 @@ footer nav ul {
 	width: 24px;
 	height: 24px;
 	cursor: pointer;
+	position: absolute;
+	right: 30px;
 }
 
 .fa-xmark {
@@ -405,7 +407,7 @@ footer nav ul {
 	font-size: 26px;
 	color: #000000;
 	margin-bottom: 46px;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 #modal-content {
