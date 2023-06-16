@@ -446,3 +446,7 @@ footer nav ul {
 	font-family: 'Syne';
 	font-size: 14px;
 }
+.color-bar {
+	width: 100%;
+	border: 1px solid #B3B3B3;
+}
