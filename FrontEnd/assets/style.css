@@ -479,7 +479,7 @@ footer nav ul {
 }
 
 .modal-icon1 {
-	display: flex;
+	display: none;
 	justify-content: center;
 	align-items: center;
 	position: absolute;
@@ -490,6 +490,7 @@ footer nav ul {
 	border-radius: 2px;
 	top: 6px;
 	right: 26px;
+	cursor: pointer;
 }
 
 .multi-arrows {
@@ -508,6 +509,7 @@ footer nav ul {
 	border-radius: 2px;
 	top: 6px;
 	right: 6px;
+	cursor: pointer;
 }
 
 .trash-icon {
