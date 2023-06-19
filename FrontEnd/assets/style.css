@@ -426,6 +426,7 @@ footer nav ul {
 }
 
 .modal-figures {
+	position: relative;
 	width: 79px;
 	height: 142px;
 }
@@ -475,4 +476,40 @@ footer nav ul {
 	background: rgba(0, 0, 0, 0.3);
 	z-index: 9998;
 	display: none;
+}
+
+.modal-icon1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	height: 17px;
+	width: 17px;
+	color: #FFFFFF;
+	background-color: #000000;
+	border-radius: 2px;
+	top: 6px;
+	right: 26px;
+}
+
+.multi-arrows {
+	font-size: 11px;
+}
+
+.modal-icon2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	height: 17px;
+	width: 17px;
+	color: #FFFFFF;
+	background-color: #000000;
+	border-radius: 2px;
+	top: 6px;
+	right: 6px;
+}
+
+.trash-icon {
+	font-size: 9px;
 }
