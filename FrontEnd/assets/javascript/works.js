@@ -20,7 +20,7 @@ function getFilterForHtml() {
     fetch("http://localhost:5678/api/categories")
     .then(response => response.json())
     .then(filterData => {
-        dataFilterListForHtml.push({ id: 0, name: "Tous"}, ...filterData);
+        dataFilterListForHtml.push({id: 0, name: "Tous"}, ...filterData);
         createFilterForHtml();
     });
 };
