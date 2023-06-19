@@ -44,8 +44,8 @@ fetch("http://localhost:5678/api/works")
             let trashIcon = document.createElement("i");
             arrowIcon.classList.add("fa-solid", "fa-up-down-left-right");
             trashIcon.classList.add("fa-regular", "fa-trash-can");
-            blockIcon1.classList.add("modal-icon");
-            blockIcon2.classList.add("modal-icon");
+            blockIcon1.classList.add("modal-icon1", "multi-arrows");
+            blockIcon2.classList.add("modal-icon2", "trash-icon");
             figure.appendChild(img);
             figure.appendChild(figcaption);
             arrayElement.appendChild(figure);
