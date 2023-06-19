@@ -12,7 +12,7 @@ let arrayPictures = [];
     modalOpeningElements.forEach(function(element) {
         element.addEventListener("click", function() {
             modal.style.display = "block";
-            overlay.style.display = "block";  
+            overlay.style.display = "block";
         });
     });
 

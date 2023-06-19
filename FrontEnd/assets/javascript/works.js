@@ -100,10 +100,10 @@ document.addEventListener("DOMContentLoaded", function() {
         editH2Project.style.marginBottom = "92px";
         editH2Project.style.marginTop = "108px";
     }
-  });
+});
 
 // Création de l'eventListener pour le logout //
 logout.addEventListener("click", function() {
     localStorage.clear();
     window.location.href = "./index.html";
-})
+});
