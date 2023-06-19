@@ -24,7 +24,7 @@ let arrayPictures = [];
         });
     });
     
-// Appel à L'API pour affichage des photos et créations des balises <img></img> //
+// Appel à L'API pour affichage dans le modal des photos et créations des balises <img></img> //
 fetch("http://localhost:5678/api/works")
     .then((response) => response.json())
     .then((data) => {
@@ -38,8 +38,20 @@ fetch("http://localhost:5678/api/works")
             img.src = element.imageUrl;
             img.alt = element.title;
             figcaption.innerHTML = "éditer";
+            let blockIcon1 = document.createElement("div");
+            let blockIcon2 = document.createElement("div");
+            let arrowIcon = document.createElement("i");
+            let trashIcon = document.createElement("i");
+            arrowIcon.classList.add("fa-solid", "fa-up-down-left-right");
+            trashIcon.classList.add("fa-regular", "fa-trash-can");
+            blockIcon1.classList.add("modal-icon");
+            blockIcon2.classList.add("modal-icon");
             figure.appendChild(img);
             figure.appendChild(figcaption);
-            arrayElement.appendChild(figure);      
+            arrayElement.appendChild(figure);
+            figure.appendChild(blockIcon1);
+            figure.appendChild(blockIcon2);
+            blockIcon1.appendChild(arrowIcon);
+            blockIcon2.appendChild(trashIcon);     
     });
 });
