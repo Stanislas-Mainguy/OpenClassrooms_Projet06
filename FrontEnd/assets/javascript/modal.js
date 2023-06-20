@@ -1,17 +1,19 @@
 // Section des variables //
-const modalOpeningElements = document.querySelectorAll(".modal-opening");
-const modal = document.querySelector("#modal");
+const openModal = document.querySelectorAll(".modal-opening");
+const modalWindow = document.querySelector("#modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const arrayElement = document.querySelector("#array-element");
 const overlay = document.querySelector("#overlay");
+const iconAppearanceModalPictures = document.querySelectorAll(".modal-pictures");
+let modalIcon = document.querySelectorAll(".modal-icon1");
 let arrayPictures = [];
 
 // Section des eventListener //
 
     // Ouverture du modal //
-    modalOpeningElements.forEach(function(element) {
+    openModal.forEach(function(element) {
         element.addEventListener("click", function() {
-            modal.style.display = "block";
+            modalWindow.style.display = "block";
             overlay.style.display = "block";
         });
     });
@@ -19,7 +21,7 @@ let arrayPictures = [];
     // Fermeture du modal //
     closeModal.forEach(function(element) {
         element.addEventListener("click", function() {
-            modal.style.display = "none";
+            modalWindow.style.display = "none";
             overlay.style.display = "none";
         });
     });
