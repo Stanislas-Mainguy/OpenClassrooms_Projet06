@@ -5,7 +5,7 @@ const closeModal = document.querySelectorAll(".close-modal");
 const arrayElement = document.querySelector("#array-element");
 const overlay = document.querySelector("#overlay");
 const iconAppearanceModalPictures = document.querySelectorAll(".modal-pictures");
-let modalIcon = document.querySelectorAll(".modal-icon1");
+const modalIcon = document.querySelectorAll(".modal-icon");
 let arrayPictures = [];
 
 // Section des eventListener //
@@ -15,6 +15,7 @@ let arrayPictures = [];
         element.addEventListener("click", function() {
             modalWindow.style.display = "block";
             overlay.style.display = "block";
+            modalWindow.setAttribute("aria-hidden", "false");
         });
     });
 
@@ -23,6 +24,7 @@ let arrayPictures = [];
         element.addEventListener("click", function() {
             modalWindow.style.display = "none";
             overlay.style.display = "none";
+            modalWindow.setAttribute("aria-hidden", "true");
         });
     });
     
@@ -46,8 +48,8 @@ fetch("http://localhost:5678/api/works")
             let trashIcon = document.createElement("i");
             arrowIcon.classList.add("fa-solid", "fa-up-down-left-right");
             trashIcon.classList.add("fa-regular", "fa-trash-can");
-            blockIcon1.classList.add("modal-icon1", "multi-arrows");
-            blockIcon2.classList.add("modal-icon2", "trash-icon");
+            blockIcon1.classList.add("modal-icon", "multi-arrows");
+            blockIcon2.classList.add("modal-icon", "trash-icon");
             figure.appendChild(img);
             figure.appendChild(figcaption);
             arrayElement.appendChild(figure);
