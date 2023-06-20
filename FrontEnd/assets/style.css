@@ -478,8 +478,8 @@ footer nav ul {
 	display: none;
 }
 
-.modal-icon1 {
-	display: none;
+.modal-icon {
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: absolute;
@@ -494,24 +494,15 @@ footer nav ul {
 }
 
 .multi-arrows {
+	display: none;
 	font-size: 11px;
-}
-
-.modal-icon2 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	height: 17px;
-	width: 17px;
-	color: #FFFFFF;
-	background-color: #000000;
-	border-radius: 2px;
-	top: 6px;
-	right: 6px;
-	cursor: pointer;
 }
 
 .trash-icon {
 	font-size: 9px;
+	right: 6px;
+}
+
+.modal-figures:hover .modal-icon {
+	display: flex;
 }
