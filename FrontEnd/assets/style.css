@@ -132,6 +132,7 @@ li:hover {
 
 #introduction article {
 	flex: 1;
+	margin-bottom: 70px;
 }
 
 #introduction h2 {
@@ -139,7 +140,7 @@ li:hover {
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: 2em;
 }
 
 #portfolio h2 {
@@ -309,6 +310,10 @@ footer nav ul {
 	color: red;
 }
 
+#forgot-password {
+	color: #000000;
+}
+
 /* Page d'accueil admin */
 #edit-mode {
 	display: none;
@@ -359,6 +364,14 @@ footer nav ul {
 	display: none;
 	cursor: pointer;
 	margin-right: -90px;
+}
+
+.edit-container3 {
+	margin-bottom: 19px;
+}
+
+.fa-pen-to-square {
+	font-size: 17px;
 }
 
 /* Section du modal */
