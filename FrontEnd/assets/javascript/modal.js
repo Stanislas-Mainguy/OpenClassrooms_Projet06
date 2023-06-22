@@ -31,10 +31,10 @@ let arrayPictures = [];
         });
     });
 
-    // Ouverture de la seconde modale //
+    /* Ouverture de la seconde modale //
     addPicture.addEventListener("click", function() {
         modal2();
-    });
+    });*/
 
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
 function modal1() {

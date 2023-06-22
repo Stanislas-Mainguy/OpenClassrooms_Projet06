@@ -12,8 +12,8 @@
 </head>
 
 <body>
-	<div id="edit-mode" class="admin">
-		<div class="edit-mode-container modal-opening">
+	<div id="edit-mode">
+		<div class="edit-container modal-opening">
 			<i class="fa-regular fa-pen-to-square"></i>
 			<span>Mode édition</span>
 		</div>
@@ -34,13 +34,13 @@
 		<div id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
-				<div class="edit-container admin modal-opening">
+				<div class="edit-container edit-picture modal-opening">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<span>modifier</span>
 				</div>
 			</figure>
 			<article class="intro">
-				<div class="edit-container3 admin modal-opening">
+				<div class="edit-container edit-intro modal-opening">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<span>modifier</span>
 				</div>
@@ -53,7 +53,7 @@
 		<section id="portfolio">
 			<div class="admin-project-edit">
 				<h2>Mes Projets</h2>
-				<div class="edit-container2 admin modal-opening">
+				<div class="edit-container edit-project modal-opening">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<span>modifier</span>
 				</div>
@@ -66,9 +66,9 @@
 			<p>Vous avez un projet ? Discutons-en !</p>
 			<form action="#" method="post">
 				<label for="name">Nom</label>
-				<input type="text" name="name" id="name">
+				<input type="text" name="name" id="name" autocomplete="off">
 				<label for="email">Email</label>
-				<input type="email" name="email" id="email">
+				<input type="email" name="email" id="email" autocomplete="off">
 				<label for="message">Message</label>
 				<textarea name="message" id="message" cols="30" rows="10"></textarea>
 				<input type="submit" value="Envoyer">

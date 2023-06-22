@@ -50,17 +50,20 @@ function createFilterForHtml() {
     });
 };
 
-// Création de la fonction de filtre et la génération des balises html en conséquence // 
+// Création de la fonction de filtres et la génération des balises html en conséquence // 
 function createCardForHtml(category = 0) {
     gallery.innerHTML = "";
     dataListForHtml.forEach(element => {
         if ( category === 0 || element.categoryId === category) {
             let figure = document.createElement("figure");
+            
             let img = document.createElement("img");
-            let figcaption = document.createElement("figcaption");
             img.src = element.imageUrl;
             img.alt = element.title;
+
+            let figcaption = document.createElement("figcaption");
             figcaption.innerHTML = element.title;
+
             figure.appendChild(img);
             figure.appendChild(figcaption);
             gallery.appendChild(figure);
@@ -84,18 +87,18 @@ document.addEventListener("DOMContentLoaded", function() {
     if (token) {
         const editLogin = document.querySelector("#login_logout");
         const editModeSection = document.querySelector("#edit-mode");
-        const editContainer1 = document.querySelector(".edit-container");
-        const editContainer2 = document.querySelector(".edit-container2");
+        const editContainer = document.querySelectorAll(".edit-container");
         const editFiltres = document.querySelector(".block_filters")
         const editHeader = document.querySelector("header");
         const editH2Project = document.querySelector(".admin-project-edit");
         
         editLogin.innerText = "",
-        editModeSection.style.display = "flex";
-        editContainer1.style.display = "block";
-        editContainer2.style.display = "block";
-        editFiltres.style.display = "none";
         editLogin.textContent = "logout";
+        editModeSection.style.display = "flex";
+        editContainer.forEach((editContainer) => {
+            editContainer.style.display = "flex";
+        });
+        editFiltres.style.display = "none";
         editHeader.style.marginTop = "97px";
         editH2Project.style.marginBottom = "92px";
         editH2Project.style.marginTop = "108px";
