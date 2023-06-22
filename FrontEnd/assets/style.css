@@ -325,6 +325,13 @@ footer nav ul {
 	z-index: 9999;
 }
 
+.admin-project-edit {
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+	justify-content: center;
+}
+
 #publish-changes {
 	background-color: #FFFFFF;
 	color: #000000;
@@ -335,33 +342,23 @@ footer nav ul {
 }
 
 .edit-container {
+	display: none;
+	cursor: pointer;
+}
+
+.edit-picture {
 	width: 80%;
 	margin: auto;
 	margin-top: 15px;
-	display: none;
-	cursor: pointer;
-}
-.edit-mode-container {
-	cursor: pointer;
 }
 
-.admin-project-edit {
-	display: flex;
-	flex-direction: row;
-	gap: 30px;
-	justify-content: center;
-}
-
-.edit-container2 {
+.edit-project {
 	padding-top: 9px;
-	display: none;
-	cursor: pointer;
 	margin-right: -90px;
 }
 
-.edit-container3 {
+.edit-intro {
 	margin-bottom: 19px;
-	cursor: pointer;
 }
 
 .fa-pen-to-square {
@@ -476,8 +473,8 @@ footer nav ul {
 
 #overlay {
 	position: fixed;
-	top: 0;
-	left: 0;
+	top: 0px;
+	left: 0px;
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.3);
