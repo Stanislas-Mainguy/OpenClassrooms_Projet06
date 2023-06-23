@@ -116,16 +116,16 @@ document.addEventListener("DOMContentLoaded", function() {
         publishButtonChanges.innerText = "Publier les changements";
 
         let editPictureContainer = document.createElement("div");
-        editPictureContainer.classList.add("edit-picture", "modal-opening");
+        editPictureContainer.classList.add("edit-picture");
 
         let spanModifier = document.createElement("span");
         spanModifier.innerText = "modifier";
 
         let editIntroContainer = document.createElement("div");
-        editIntroContainer.classList.add("edit-intro", "modal-opening");
+        editIntroContainer.classList.add("edit-intro");
 
         let editProjectContainer = document.createElement("div");
-        editProjectContainer.classList.add("edit-project", "modal-opening");
+        editProjectContainer.classList.add("edit-project");
 
         // Création des éléments liés à l'ouverture de la modal //
         let modalElement = document.createElement("aside");
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // Fonction de création d'un block div pour intégration dans les appendChild au dessus //
 function createDivContainerWithElements() {
     let divContainer = document.createElement("div");
-    divContainer.classList.add("div-container", "modal-opening");
+    divContainer.classList.add("div-edit-size", "modal-opening");
     
     let penIcon = document.createElement("i");
     penIcon.classList.add("fa-regular", "fa-pen-to-square");

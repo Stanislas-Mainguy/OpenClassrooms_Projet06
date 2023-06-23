@@ -362,6 +362,12 @@ footer nav ul {
 	margin-bottom: 19px;
 }
 
+.div-edit-size {
+	display: flex;
+	justify-content: space-between;
+	width: 84px;
+}
+
 .fa-pen-to-square {
 	font-size: 17px;
 }
