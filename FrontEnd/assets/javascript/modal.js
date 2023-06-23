@@ -127,7 +127,7 @@ function modal1() {
     });
 };
 
-// Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
+/* Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
 function modal2() {
     modalContent.innerHTML = "";
 
@@ -208,4 +208,4 @@ function modal2() {
     blockPictureAndButton.appendChild(addPictureButton);
     blockPictureAndButton.appendChild(infoAddButton);
     blockAddIcon.appendChild(addPictureIcon);
-};
+};*/
