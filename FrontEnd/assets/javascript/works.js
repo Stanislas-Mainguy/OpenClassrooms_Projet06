@@ -86,13 +86,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Si présence d'un token, création des éléments et changement de style pour les éléments suivant //
     if (token) {
+        // Section des constantes pour le changement de la page admin //
         const editLogin = document.querySelector("#login_logout");
         const editFiltres = document.querySelector(".block_filters");
         const editHeader = document.querySelector("header");
         const editH2Project = document.querySelector(".admin-project-edit");
         const figureEdit = document.querySelector(".figure-edit-element");
         const articleIntroEdit = document.querySelector(".intro");
+        const footer = document.querySelector("footer");
 
+        // Section de création des éléments admin //
         let editMode = document.createElement("div");
         editMode.id = "edit-mode";
 
@@ -124,6 +127,16 @@ document.addEventListener("DOMContentLoaded", function() {
         let editProjectContainer = document.createElement("div");
         editProjectContainer.classList.add("edit-project", "modal-opening");
 
+        // Création des éléments liés à l'ouverture de la modal //
+        let modalElement = document.createElement("aside");
+        modalElement.id = "modal";
+        modalElement.setAttribute("aria-hidden", "true");
+
+        let overlayElement = document.createElement("div");
+        overlayElement.id = "overlay";
+        overlayElement.classList.add("close-modal");
+
+        // Rattachement des éléments à leurs parents // 
         editContainer.appendChild(penIcon);
         editContainer.appendChild(spanEditMode);
         editMode.appendChild(editContainer);
@@ -135,7 +148,10 @@ document.addEventListener("DOMContentLoaded", function() {
         editIntroContainer.appendChild(createDivContainerWithElements());
         editH2Project.appendChild(editProjectContainer);
         editProjectContainer.appendChild(createDivContainerWithElements());
+        footer.insertAdjacentElement("afterend", modalElement);
+        footer.insertAdjacentElement("afterend", overlayElement);
 
+        // Modification de style pour certains éléments //
         editLogin.innerText = "";
         editLogin.textContent = "logout";
         editFiltres.style.display = "none";
