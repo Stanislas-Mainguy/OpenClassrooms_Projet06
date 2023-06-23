@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Création des éléments liés à l'ouverture de la modal //
         let modalElement = document.createElement("aside");
         modalElement.id = "modal";
-        modalElement.setAttribute("aria-hidden", "true");
+        modalElement.setAttribute("aria-hidden", "false");
 
         let overlayElement = document.createElement("div");
         overlayElement.id = "overlay";
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
         editProjectContainer.appendChild(createDivContainerWithElements());
         footer.insertAdjacentElement("afterend", modalElement);
         footer.insertAdjacentElement("afterend", overlayElement);
-
+        
         // Modification de style pour certains éléments //
         editLogin.innerText = "";
         editLogin.textContent = "logout";

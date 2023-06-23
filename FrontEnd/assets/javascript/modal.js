@@ -1,5 +1,5 @@
 // Section des variables //
-const openModal = document.querySelectorAll(".modal-opening");
+const openModal = document.querySelectorAll('.modal-opening');
 const modalWindow = document.querySelector("#modal");
 const closeModal = document.querySelectorAll(".close-modal");
 const arrayElement = document.querySelector("#array-element");
@@ -11,13 +11,13 @@ const modalContent = document.querySelector(".modal-content");
 let arrayPictures = [];
 
 // Section des eventListener //
-
+    
     // Ouverture de la modale //
     openModal.forEach(function(element) {
         element.addEventListener("click", function() {
             modalWindow.style.display = "block";
             overlay.style.display = "block";
-            modalWindow.setAttribute("aria-hidden", "false");
+            modalWindow.setAttribute("aria-hidden", "false")
             modal1();
         });
     });
@@ -127,7 +127,7 @@ function modal1() {
     });
 };
 
-/* Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
+// Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
 function modal2() {
     modalContent.innerHTML = "";
 
@@ -208,4 +208,4 @@ function modal2() {
     blockPictureAndButton.appendChild(addPictureButton);
     blockPictureAndButton.appendChild(infoAddButton);
     blockAddIcon.appendChild(addPictureIcon);
-};*/
+};
