@@ -73,6 +73,7 @@ function modal1() {
     buttonDeleteAllElement.classList.add("delete-button");
     buttonDeleteAllElement.innerHTML = "Supprimer la galerie";
 
+    // Rattachement des éléments à leurs parents //
     modalWindow.appendChild(blockIcon);
     modalWindow.appendChild(modalContent);
     blockIcon.appendChild(crossIcon);
@@ -114,6 +115,7 @@ function modal1() {
                 let trashIcon = document.createElement("i");
                 trashIcon.classList.add("fa-regular", "fa-trash-can");
                 
+                // Rattachement des éléments à leurs parents //
                 arrayElement.appendChild(figure);
                 figure.appendChild(img);
                 figure.appendChild(figcaption);
@@ -129,6 +131,7 @@ function modal1() {
 function modal2() {
     modalContent.innerHTML = "";
 
+    // Création des éléments liés à l'ouverture de la modal //
     let arrowLeft = document.createElement("i");
     arrowLeft.classList.add("fa-solid", "fa-arrow-left-long");
     
@@ -189,6 +192,7 @@ function modal2() {
     validAddElement.classList.add("button_appearance", "validate-picture");
     validAddElement.innerHTML = "Valider";
 
+    // Rattachement des éléments à leurs parents //
     modalWindow.appendChild(arrowLeft);
     modalWindow.appendChild(addBlock);
     addBlock.appendChild(modalTitle);
