@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Création des éléments liés à l'ouverture de la modal //
         let modalElement = document.createElement("aside");
         modalElement.id = "modal";
-        modalElement.setAttribute("aria-hidden", "false");
+        modalElement.setAttribute("aria-hidden", "true");
 
         let overlayElement = document.createElement("div");
         overlayElement.id = "overlay";
