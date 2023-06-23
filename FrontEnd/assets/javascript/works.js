@@ -2,6 +2,7 @@
 const gallery = document.querySelector(".gallery");
 const filtersNav = document.querySelector(".block_filters");
 const logout = document.querySelector("#login_logout");
+const body = document.querySelector("body");
 let dataListForHtml = [];
 let dataFilterListForHtml = [];
 
@@ -82,28 +83,84 @@ getFilterForHtml();
 // Vérification du token dans le localStorage //
 document.addEventListener("DOMContentLoaded", function() {
     const token = localStorage.getItem("token");
-    
-    // Si présence d'un token, changement de style pour les éléments suivant //
+
+    // Si présence d'un token, création des éléments et changement de style pour les éléments suivant //
     if (token) {
         const editLogin = document.querySelector("#login_logout");
-        const editModeSection = document.querySelector("#edit-mode");
-        const editContainer = document.querySelectorAll(".edit-container");
-        const editFiltres = document.querySelector(".block_filters")
+        const editFiltres = document.querySelector(".block_filters");
         const editHeader = document.querySelector("header");
         const editH2Project = document.querySelector(".admin-project-edit");
-        
-        editLogin.innerText = "",
+        const figureEdit = document.querySelector(".figure-edit-element");
+        const articleIntroEdit = document.querySelector(".intro");
+
+        let editMode = document.createElement("div");
+        editMode.id = "edit-mode";
+
+        let editContainer = document.createElement("div");
+        editContainer.classList.add("edit-container", "modal-opening");
+
+        let penIcon = document.createElement("i");
+        penIcon.classList.add("fa-regular", "fa-pen-to-square");
+
+        let spanEditMode = document.createElement("span");
+        spanEditMode.classList.add("span-edit-mode");
+        spanEditMode.innerText = "Mode édition";
+
+        let publishButtonChanges = document.createElement("button");
+        publishButtonChanges.id = "publish-changes";
+        publishButtonChanges.classList.add("button_appearance");
+        publishButtonChanges.type = "button";
+        publishButtonChanges.innerText = "Publier les changements";
+
+        let editPictureContainer = document.createElement("div");
+        editPictureContainer.classList.add("edit-picture", "modal-opening");
+
+        let spanModifier = document.createElement("span");
+        spanModifier.innerText = "modifier";
+
+        let editIntroContainer = document.createElement("div");
+        editIntroContainer.classList.add("edit-intro", "modal-opening");
+
+        let editProjectContainer = document.createElement("div");
+        editProjectContainer.classList.add("edit-project", "modal-opening");
+
+        editContainer.appendChild(penIcon);
+        editContainer.appendChild(spanEditMode);
+        editMode.appendChild(editContainer);
+        editMode.appendChild(publishButtonChanges);
+        body.insertBefore(editMode, body.firstElementChild);
+        figureEdit.appendChild(editPictureContainer);
+        editPictureContainer.appendChild(createDivContainerWithElements());
+        articleIntroEdit.insertBefore(editIntroContainer, articleIntroEdit.firstChild);
+        editIntroContainer.appendChild(createDivContainerWithElements());
+        editH2Project.appendChild(editProjectContainer);
+        editProjectContainer.appendChild(createDivContainerWithElements());
+
+        editLogin.innerText = "";
         editLogin.textContent = "logout";
-        editModeSection.style.display = "flex";
-        editContainer.forEach((editContainer) => {
-            editContainer.style.display = "flex";
-        });
         editFiltres.style.display = "none";
         editHeader.style.marginTop = "97px";
         editH2Project.style.marginBottom = "92px";
         editH2Project.style.marginTop = "108px";
-    }
+    };
 });
+
+// Fonction de création d'un block div pour intégration dans les appendChild au dessus //
+function createDivContainerWithElements() {
+    let divContainer = document.createElement("div");
+    divContainer.classList.add("edit-container");
+    
+    let penIcon = document.createElement("i");
+    penIcon.classList.add("fa-regular", "fa-pen-to-square");
+    
+    let spanModifier = document.createElement("span");
+    spanModifier.innerText = "modifier";
+
+    divContainer.appendChild(penIcon);
+    divContainer.appendChild(spanModifier);
+
+    return divContainer;
+};
 
 // Création de l'eventListener pour le logout //
 logout.addEventListener("click", function() {

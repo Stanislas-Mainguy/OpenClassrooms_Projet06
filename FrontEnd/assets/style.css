@@ -309,7 +309,7 @@ footer nav ul {
 
 /* Page d'accueil admin */
 #edit-mode {
-	display: none;
+	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -321,7 +321,7 @@ footer nav ul {
 	position: absolute;
 	left: 0%;
 	top: 0%;
-	margin-top: 0px;
+	margin-top: 0;
 	z-index: 9999;
 }
 
@@ -342,8 +342,9 @@ footer nav ul {
 }
 
 .edit-container {
-	display: none;
+	display: flex;
 	cursor: pointer;
+	gap: 10px;
 }
 
 .edit-picture {
