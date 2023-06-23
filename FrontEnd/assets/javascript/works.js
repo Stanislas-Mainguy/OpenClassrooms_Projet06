@@ -134,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let overlayElement = document.createElement("div");
         overlayElement.id = "overlay";
-        overlayElement.classList.add("close-modal");
 
         // Rattachement des éléments à leurs parents // 
         editContainer.appendChild(penIcon);
@@ -164,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // Fonction de création d'un block div pour intégration dans les appendChild au dessus //
 function createDivContainerWithElements() {
     let divContainer = document.createElement("div");
-    divContainer.classList.add("edit-container");
+    divContainer.classList.add("div-container", "modal-opening");
     
     let penIcon = document.createElement("i");
     penIcon.classList.add("fa-regular", "fa-pen-to-square");
