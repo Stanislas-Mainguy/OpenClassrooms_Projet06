@@ -39,6 +39,8 @@ let arrayPictures = [];
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
 function modal1() {
     modalWindow.innerHTML = "";
+
+    // Création des éléments liés à l'ouverture de la modal //
     let blockIcon = document.createElement("div");
     blockIcon.classList.add("block-icon", "close-modal");
 
