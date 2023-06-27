@@ -81,7 +81,6 @@ getFilterForHtml();
                     // SECTION POUR ALLER SUR LA PAGE DE L'ADMIN //
 
 // Vérification du token dans le localStorage //
-document.addEventListener("DOMContentLoaded", function() {
     const token = localStorage.getItem("token");
 
     // Si présence d'un token, création des éléments et changement de style pour les éléments suivant //
@@ -134,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let overlayElement = document.createElement("div");
         overlayElement.id = "overlay";
+        overlayElement.classList.add("close-modal");
 
         // Rattachement des éléments à leurs parents // 
         editContainer.appendChild(penIcon);
@@ -158,7 +158,6 @@ document.addEventListener("DOMContentLoaded", function() {
         editH2Project.style.marginBottom = "92px";
         editH2Project.style.marginTop = "108px";
     };
-});
 
 // Fonction de création d'un block div pour intégration dans les appendChild au dessus //
 function createDivContainerWithElements() {
