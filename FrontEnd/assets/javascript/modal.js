@@ -1,28 +1,135 @@
-// Section des variables //
-const openModal = document.querySelectorAll('.modal-opening');
-const modalWindow = document.querySelector("#modal");
+                                        // SECTION DES VARIABLES //
+
 const closeModal = document.querySelectorAll(".close-modal");
-const arrayElement = document.querySelector("#array-element");
-const overlay = document.querySelector("#overlay");
-const iconAppearanceModalPictures = document.querySelectorAll(".modal-pictures");
-const modalIcon = document.querySelectorAll(".modal-icon");
 const addPicture = document.querySelector("#add-element");
 const modalContent = document.querySelector(".modal-content");
-let arrayPictures = [];
 
-// Section des eventListener //
+
+                            // SECTION POUR ALLER SUR LA PAGE DE L'ADMIN //
+
+// Vérification du token dans le localStorage //
+function checkTokenForAdminMode() {
+    const token = localStorage.getItem("token");
+    const body = document.querySelector("body");
+
+    // Si présence d'un token, création des éléments et changement de style pour les éléments suivant //
+    if (token) {
+        // Section des constantes pour le changement de la page admin //
+        const editLogin = document.querySelector("#login_logout");
+        const editFiltres = document.querySelector(".block_filters");
+        const editHeader = document.querySelector("header");
+        const editH2Project = document.querySelector(".admin-project-edit");
+        const figureEdit = document.querySelector(".figure-edit-element");
+        const articleIntroEdit = document.querySelector(".intro");
+        const footer = document.querySelector("footer");
+
+        // Section de création des éléments admin //
+        let editMode = document.createElement("div");
+        editMode.id = "edit-mode";
+
+        let editContainer = document.createElement("div");
+        editContainer.classList.add("edit-container", "modal-opening");
+
+        let penIcon = document.createElement("i");
+        penIcon.classList.add("fa-regular", "fa-pen-to-square");
+
+        let spanEditMode = document.createElement("span");
+        spanEditMode.classList.add("span-edit-mode");
+        spanEditMode.innerText = "Mode édition";
+
+        let publishButtonChanges = document.createElement("button");
+        publishButtonChanges.id = "publish-changes";
+        publishButtonChanges.classList.add("button_appearance");
+        publishButtonChanges.type = "button";
+        publishButtonChanges.innerText = "Publier les changements";
+
+        let editPictureContainer = document.createElement("div");
+        editPictureContainer.classList.add("edit-picture");
+
+        let spanModifier = document.createElement("span");
+        spanModifier.innerText = "modifier";
+
+        let editIntroContainer = document.createElement("div");
+        editIntroContainer.classList.add("edit-intro");
+
+        let editProjectContainer = document.createElement("div");
+        editProjectContainer.classList.add("edit-project");
+
+        let modalElement = document.createElement("aside");
+        modalElement.id = "modal";
+        modalElement.setAttribute("aria-hidden", "true");
+
+        let overlayElement = document.createElement("div");
+        overlayElement.id = "overlay";
+        overlayElement.classList.add("close-modal");
+
+        // Rattachement des éléments à leurs parents // 
+        editContainer.appendChild(penIcon);
+        editContainer.appendChild(spanEditMode);
+        editMode.appendChild(editContainer);
+        editMode.appendChild(publishButtonChanges);
+        body.insertBefore(editMode, body.firstElementChild);
+        figureEdit.appendChild(editPictureContainer);
+        editPictureContainer.appendChild(createDivContainerWithElements());
+        articleIntroEdit.insertBefore(editIntroContainer, articleIntroEdit.firstChild);
+        editIntroContainer.appendChild(createDivContainerWithElements());
+        editH2Project.appendChild(editProjectContainer);
+        editProjectContainer.appendChild(createDivContainerWithElements());
+        footer.insertAdjacentElement("afterend", modalElement);
+        footer.insertAdjacentElement("afterend", overlayElement);
+        
+        // Modification de style pour certains éléments //
+        editLogin.innerText = "";
+        editLogin.textContent = "logout";
+        editFiltres.style.display = "none";
+        editHeader.style.marginTop = "97px";
+        editH2Project.style.marginBottom = "92px";
+        editH2Project.style.marginTop = "108px";
+    };
+};
+
+// Fonction de création d'un block div pour intégration dans les appendChild au dessus //
+function createDivContainerWithElements() {
+    let divContainer = document.createElement("div");
+    divContainer.classList.add("div-edit-size", "modal-opening");
     
-    // Ouverture de la modale //
+    let penIcon = document.createElement("i");
+    penIcon.classList.add("fa-regular", "fa-pen-to-square");
+    
+    let spanModifier = document.createElement("span");
+    spanModifier.innerText = "modifier";
+
+    divContainer.appendChild(penIcon);
+    divContainer.appendChild(spanModifier);
+
+    return divContainer;
+};
+
+                                
+                                // SECTION DES EVENTLISTENER //
+    
+// Ouverture de la modale //
+function setupModalOpening() {
+    const openModal = document.querySelectorAll(".modal-opening");
+    const modalWindow = document.querySelector("#modal");
+    const overlay = document.querySelector("#overlay");
+
     openModal.forEach(function(element) {
         element.addEventListener("click", function() {
             modalWindow.style.display = "block";
+            modalWindow.setAttribute("aria-hidden", "false");
             overlay.style.display = "block";
-            modalWindow.setAttribute("aria-hidden", "false")
-            modal1();
+            modal1(modalWindow);
         });
     });
+};
 
-    // Fermeture de la modale //
+// Fermeture de la modale //
+function setupModalClosing() {
+    const closeModal = document.querySelectorAll(".close-modal");
+    const modalWindow = document.querySelector("#modal");
+    const overlay = document.querySelector("#overlay");
+
     closeModal.forEach(function(element) {
         element.addEventListener("click", function() {
             modalWindow.style.display = "none";
@@ -30,17 +137,21 @@ let arrayPictures = [];
             modalWindow.setAttribute("aria-hidden", "true");
         });
     });
+};
 
-    /* Ouverture de la seconde modale //
-    addPicture.addEventListener("click", function() {
-        modal2();
-    });*/
+/* Ouverture de la seconde modale //
+addPicture.addEventListener("click", function() {
+    modal2();
+});*/
+
+
+                            // SECTION DE STRUCTURATION DES MODALES //
 
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
-function modal1() {
+function modal1(modalWindow) {
     modalWindow.innerHTML = "";
-
-    // Création des éléments liés à l'ouverture de la modal //
+    
+    // Création des éléments liés à l'ouverture de la modale //
     let blockIcon = document.createElement("div");
     blockIcon.classList.add("block-icon", "close-modal");
 
@@ -212,3 +323,18 @@ function modal2() {
     blockPictureAndButton.appendChild(infoAddButton);
     blockAddIcon.appendChild(addPictureIcon);
 };
+
+// Création de l'eventListener pour le logout //
+function setupLogout() {
+    const logout = document.querySelector("#login_logout");
+
+    logout.addEventListener("click", function() {
+        localStorage.clear();
+        window.location.href = "./index.html";
+    });
+};
+
+checkTokenForAdminMode();
+setupLogout();
+setupModalOpening();
+setupModalClosing();
