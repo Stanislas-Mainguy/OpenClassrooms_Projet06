@@ -1,8 +1,3 @@
-                                        // SECTION DES VARIABLES //
-
-const addPicture = document.querySelector("#add-element");
-const modalContent = document.querySelector(".modal-content");
-
                             // SECTION POUR ALLER SUR LA PAGE DE L'ADMIN //
 
 // Vérification du token dans le localStorage //
@@ -10,7 +5,7 @@ function checkTokenForAdminMode() {
     const token = localStorage.getItem("token");
     const body = document.querySelector("body");
 
-    // Si présence d'un token, création des éléments et changement de style pour les éléments suivant //
+    // S'il y a la présence d'un token, création des éléments et changement de style pour les éléments suivant //
     if (token) {
         // Section des constantes pour le changement de la page admin //
         const editLogin = document.querySelector("#login_logout");
@@ -137,16 +132,21 @@ function setupModalClosing() {
     });
 };
 
-/* Ouverture de la seconde modale //
-addPicture.addEventListener("click", function() {
-    modal2();
-});*/
-
+// Changement de la modal1 en modal2 //
+function changeToModal2() {
+    const addElementButton = document.querySelector("#add-element");
+    const modalWindow = document.querySelector("#modal");
+    
+    addElementButton.addEventListener("click", function() {
+        modal2(modalWindow);
+    });
+};
 
                             // SECTION DE STRUCTURATION DES MODALES //
 
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
 function modal1(modalWindow) {
+    const addElementButton = document.querySelector("#add-element");
     modalWindow.innerHTML = "";
     
     // Création des éléments liés à l'ouverture de la modale //
@@ -237,10 +237,13 @@ function modal1(modalWindow) {
                 blockIcon2.appendChild(trashIcon);     
         });
     });
+    setupModalClosing();
+    changeToModal2();
 };
 
 // Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
-function modal2() {
+function modal2(modalWindow) {
+    const modalContent = document.querySelector(".modal-content");
     modalContent.innerHTML = "";
 
     // Création des éléments liés à l'ouverture de la modal //
@@ -335,4 +338,3 @@ function setupLogout() {
 checkTokenForAdminMode();
 setupLogout();
 setupModalOpening();
-setupModalClosing();
