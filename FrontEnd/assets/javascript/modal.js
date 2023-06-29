@@ -1,9 +1,7 @@
                                         // SECTION DES VARIABLES //
 
-const closeModal = document.querySelectorAll(".close-modal");
 const addPicture = document.querySelector("#add-element");
 const modalContent = document.querySelector(".modal-content");
-
 
                             // SECTION POUR ALLER SUR LA PAGE DE L'ADMIN //
 
