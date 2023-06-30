@@ -377,7 +377,6 @@ footer nav ul {
 #modal {
 	position: fixed;
 	width: 630px;
-	height: 731px;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);

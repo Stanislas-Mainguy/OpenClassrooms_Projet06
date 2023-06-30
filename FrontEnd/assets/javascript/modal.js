@@ -200,6 +200,9 @@ function modal1(modalWindow) {
     blockAddingElement.appendChild(blockButton);
     blockButton.appendChild(buttonAddElement);
     blockButton.appendChild(buttonDeleteAllElement);
+
+    // Changement de taille pour la modale //
+    modalWindow.style.height = "731px";
     
     // Création des éléments pour affichage des photos dans arrayElement //
     fetch("http://localhost:5678/api/works")
@@ -247,6 +250,7 @@ function modal1(modalWindow) {
 
 // Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
 function modal2() {
+    const modalWindow = document.querySelector("#modal");
     const modalContent = document.querySelector("#modal-content");
     const blockIcon = document.querySelector(".block-icon");
     modalContent.innerHTML = "";
@@ -332,6 +336,7 @@ function modal2() {
     blockAddIcon.appendChild(addPictureIcon);
 
     // Changement de style pour des éléments de la modal2 //
+    modalWindow.style.height = "670px";
     blockIcon.style.justifyContent = "space-between";
 };
 
