@@ -154,13 +154,13 @@ function modal1(modalWindow) {
     blockIcon.classList.add("block-icon");
 
     let blockCrossIcon = document.createElement("div");
-    blockCrossIcon.classList.add("block-cross-icon", "close-modal");
+    blockCrossIcon.classList.add("block-cross-icon-and-arrow", "close-modal");
 
     let crossIcon = document.createElement("i")
     crossIcon.classList.add("fa-solid", "fa-xmark");
 
     let modalContent = document.createElement("div");
-    modalContent.classList.add("modal-content");
+    modalContent.id = "modal-content";
 
     let blockAddingElement = document.createElement("div");
     blockAddingElement.classList.add("block-adding-element");
@@ -246,16 +246,20 @@ function modal1(modalWindow) {
 };
 
 // Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
-function modal2(modalWindow) {
-    const modalContent = document.querySelector(".modal-content");
+function modal2() {
+    const modalContent = document.querySelector("#modal-content");
+    const blockIcon = document.querySelector(".block-icon");
     modalContent.innerHTML = "";
 
     // Création des éléments liés à l'ouverture de la modal //
+    let blockArrowLeftIcon = document.createElement("div");
+    blockArrowLeftIcon.classList.add("block-cross-icon-and-arrow", "return-modal1");
+
     let arrowLeft = document.createElement("i");
     arrowLeft.classList.add("fa-solid", "fa-arrow-left-long");
-    
-    let addBlock = document.createElement("div");
-    addBlock.classList.add("add-block");
+
+    let blockAddElementModal2 = document.createElement("div");
+    blockAddElementModal2.classList.add("block-add-element-modal2");
 
     let modalTitle = document.createElement("h2");
     modalTitle.classList.add("modal-title");
@@ -288,21 +292,19 @@ function modal2(modalWindow) {
     labelAddTitle.innerHTML = "Titre";
 
     let inputAddTitle = document.createElement("input");
-    inputAddTitle.classList.add("input-add-title");
+    inputAddTitle.classList.add("form-style", "add-title");
     inputAddTitle.type = "text";
     inputAddTitle.name = "titre";
-    inputAddTitle.id = "title";
 
     let labelAddCategorie = document.createElement("label");
-    labelAddCategorie.classList.add("label-add-categorie");
+    labelAddCategorie.classList.add("label-add-title", "title-form2");
     labelAddCategorie.for = "categories";
     labelAddCategorie.innerHTML = "Catégorie"
 
     let inputAddCategorie = document.createElement("input");
-    inputAddCategorie.classList.add("input-add-categorie");
+    inputAddCategorie.classList.add("form-style", "add-categories");
     inputAddCategorie.type = "categories";
     inputAddCategorie.name = "categories";
-    inputAddCategorie.id = "add-categories";
 
     let colorBar = document.createElement("div");
     colorBar.classList.add("color-bar");
@@ -312,13 +314,14 @@ function modal2(modalWindow) {
     validAddElement.innerHTML = "Valider";
 
     // Rattachement des éléments à leurs parents //
-    modalWindow.appendChild(arrowLeft);
-    modalWindow.appendChild(addBlock);
-    addBlock.appendChild(modalTitle);
-    addBlock.appendChild(blockPictureAndButton);
-    addBlock.appendChild(formAddPicture);
-    addBlock.appendChild(colorBar);
-    addBlock.appendChild(validAddElement);
+    blockIcon.insertBefore(blockArrowLeftIcon, blockIcon.firstChild);
+    blockArrowLeftIcon.appendChild(arrowLeft);
+    modalContent.appendChild(blockAddElementModal2); 
+    blockAddElementModal2.appendChild(modalTitle);
+    blockAddElementModal2.appendChild(blockPictureAndButton);
+    blockAddElementModal2.appendChild(formAddPicture);
+    blockAddElementModal2.appendChild(colorBar);
+    blockAddElementModal2.appendChild(validAddElement);
     formAddPicture.appendChild(labelAddTitle);
     formAddPicture.appendChild(inputAddTitle);
     formAddPicture.appendChild(labelAddCategorie);
@@ -327,6 +330,9 @@ function modal2(modalWindow) {
     blockPictureAndButton.appendChild(addPictureButton);
     blockPictureAndButton.appendChild(infoAddButton);
     blockAddIcon.appendChild(addPictureIcon);
+
+    // Changement de style pour des éléments de la modal2 //
+    blockIcon.style.justifyContent = "space-between";
 };
 
 // Création de l'eventListener pour le logout //
