@@ -152,6 +152,15 @@ function returnOnModal1() {
     });
 };
 
+// Ajout photo sur modal2 //
+function addPictureFromModal2() {
+    const addPictureButton = document.querySelector(".add-new-picture");
+
+    addPictureButton.addEventListener("click", function() {
+
+    });
+};
+
                             // SECTION DE STRUCTURATION DES MODALES //
 
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
@@ -288,12 +297,19 @@ function modal2() {
     let addPictureIcon = document.createElement("i");
     addPictureIcon.classList.add("fa-regular", "fa-image");
 
-    let addPictureButton = document.createElement("button");
-    addPictureButton.classList.add("button_appearance", "add-new-picture");
-    addPictureButton.innerHTML = "+ Ajouter photo";
+    let styleInputAddElement = document.createElement("div");
+    styleInputAddElement.classList.add("button_appearance", "add-new-picture");
+    styleInputAddElement.innerHTML = "+ Ajout photo";
 
-    let infoAddButton = document.createElement("p");
-    infoAddButton.innerHTML = "jpg, png : 4mo max";
+    let addPictureInput = document.createElement("input");
+    addPictureInput.classList.add("input-add-element");
+    addPictureInput.type = "file";
+    addPictureInput.accept = ".jpg, .jpeg, .png";
+    addPictureInput.maxSize = 4 * 1024 * 1024; // 4 Mo
+    addPictureInput.placeholder = "+ Ajout photo";
+
+    let infoAddInput = document.createElement("p");
+    infoAddInput.innerHTML = "jpg, png : 4mo max";
 
     let formAddPicture = document.createElement("form");
     formAddPicture.classList.add("form-add-picture");
@@ -341,8 +357,9 @@ function modal2() {
     formAddPicture.appendChild(labelAddCategorie);
     formAddPicture.appendChild(inputAddCategorie);
     blockPictureAndButton.appendChild(blockAddIcon);
-    blockPictureAndButton.appendChild(addPictureButton);
-    blockPictureAndButton.appendChild(infoAddButton);
+    blockPictureAndButton.appendChild(addPictureInput);
+    blockPictureAndButton.appendChild(styleInputAddElement);
+    blockPictureAndButton.appendChild(infoAddInput);
     blockAddIcon.appendChild(addPictureIcon);
 
     // Changement de style pour des éléments de la modal2 //

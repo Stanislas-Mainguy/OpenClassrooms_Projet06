@@ -541,6 +541,7 @@ footer nav ul {
 }
 
 .block-picture-and-button {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -566,15 +567,49 @@ footer nav ul {
 }
 
 .add-new-picture {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 173px;
+	height: 36px;
 	margin-top: 15px;
 	margin-bottom: 7px;
 	background-color: #CBD6DC;
 	border-color: #CBD6DC;
+	position: absolute;
+	bottom: 38px;
 }
 
-.block-picture-and-button p {
-	font-size: 10px;
+.input-add-element {
+	width: 173px;
+	height: 36px;
+	margin-top: 15px;
+	margin-bottom: 7px;
+	border: none;
+ 	outline: none;
+  	opacity: 0;
+	z-index: 101;
+}
+
+.input-add-element::file-selector-button {
+	visibility: hidden;
+}
+
+.input-add-element::placeholder {
+	color: transparent;
+}
+  
+.input-add-element::-webkit-input-placeholder {
+	color: transparent;
+}
+
+.input-add-element::-moz-placeholder {
+	color: transparent;
+	opacity: 0;
+}
+  
+.input-add-element:-ms-input-placeholder {
+	color: transparent;
 }
 
 .form-add-picture {
