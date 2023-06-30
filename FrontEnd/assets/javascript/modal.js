@@ -142,6 +142,16 @@ function changeToModal2() {
     });
 };
 
+// Retour de la modal2 à la modal1 //
+function returnOnModal1() {
+    const blockArrowLeftIcon = document.querySelector(".return-modal1");
+    const modalWindow = document.querySelector("#modal");
+
+    blockArrowLeftIcon.addEventListener("click", function() {
+        modal1(modalWindow);
+    });
+};
+
                             // SECTION DE STRUCTURATION DES MODALES //
 
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
@@ -338,6 +348,8 @@ function modal2() {
     // Changement de style pour des éléments de la modal2 //
     modalWindow.style.height = "670px";
     blockIcon.style.justifyContent = "space-between";
+
+    returnOnModal1();
 };
 
 // Création de l'eventListener pour le logout //
