@@ -151,7 +151,10 @@ function modal1(modalWindow) {
     
     // Création des éléments liés à l'ouverture de la modale //
     let blockIcon = document.createElement("div");
-    blockIcon.classList.add("block-icon", "close-modal");
+    blockIcon.classList.add("block-icon");
+
+    let blockCrossIcon = document.createElement("div");
+    blockCrossIcon.classList.add("block-cross-icon", "close-modal");
 
     let crossIcon = document.createElement("i")
     crossIcon.classList.add("fa-solid", "fa-xmark");
@@ -188,7 +191,8 @@ function modal1(modalWindow) {
     // Rattachement des éléments à leurs parents //
     modalWindow.appendChild(blockIcon);
     modalWindow.appendChild(modalContent);
-    blockIcon.appendChild(crossIcon);
+    blockIcon.appendChild(blockCrossIcon);
+    blockCrossIcon.appendChild(crossIcon);
     modalContent.appendChild(blockAddingElement);
     blockAddingElement.appendChild(modalTitle);
     blockAddingElement.appendChild(arrayElement);
