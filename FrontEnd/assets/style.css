@@ -385,20 +385,29 @@ footer nav ul {
 	display: none;
 	background-color: #FFFFFF;
 	box-sizing: border-box;
-	padding: 26px 30px 48px 104px;
 	flex-direction: column;
 	border-radius: 10px;
 }
 
 .block-icon {
 	display: flex;
-	justify-content: center;
+	justify-content: end;
 	align-items: center;
-	width: 24px;
+	width: 100%;
 	height: 24px;
 	cursor: pointer;
-	position: absolute;
-	right: 30px;
+	margin-top: 26px;
+	padding-left: 30px;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+
+.block-cross-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 24px;
+	width: 24px;
 }
 
 .fa-xmark {
@@ -411,7 +420,7 @@ footer nav ul {
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
-	margin-right: 57px;
+	margin: 0px 105px 0px 105px;
 }
 
 .modal-title {
@@ -420,7 +429,7 @@ footer nav ul {
 	font-size: 26px;
 	color: #000000;
 	margin-bottom: 46px;
-	margin-top: 20px;
+	margin-top: 13px;
 }
 
 #modal-content {
