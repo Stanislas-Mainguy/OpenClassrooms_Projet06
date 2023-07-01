@@ -152,6 +152,16 @@ function returnOnModal1() {
     });
 };
 
+// Création de l'eventListener pour le logout //
+function setupLogout() {
+    const logout = document.querySelector("#login_logout");
+
+    logout.addEventListener("click", function() {
+        localStorage.clear();
+        window.location.href = "./index.html";
+    });
+};
+
 // Ajout photo sur modal2 //
 function addPictureFromModal2() {
     const addPictureButton = document.querySelector(".add-new-picture");
@@ -160,6 +170,8 @@ function addPictureFromModal2() {
 
     });
 };
+
+
 
                             // SECTION DE STRUCTURATION DES MODALES //
 
@@ -367,16 +379,6 @@ function modal2() {
     blockIcon.style.justifyContent = "space-between";
 
     returnOnModal1();
-};
-
-// Création de l'eventListener pour le logout //
-function setupLogout() {
-    const logout = document.querySelector("#login_logout");
-
-    logout.addEventListener("click", function() {
-        localStorage.clear();
-        window.location.href = "./index.html";
-    });
 };
 
 checkTokenForAdminMode();
