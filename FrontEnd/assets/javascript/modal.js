@@ -338,15 +338,15 @@ function modal2() {
     inputAddTitle.type = "text";
     inputAddTitle.name = "titre";
 
-    let labelAddCategorie = document.createElement("label");
-    labelAddCategorie.classList.add("label-add-title", "title-form2");
-    labelAddCategorie.for = "categories";
-    labelAddCategorie.innerHTML = "Catégorie"
+    let labelSelectCategorie = document.createElement("label");
+    labelSelectCategorie.classList.add("label-add-title", "title-form2");
+    labelSelectCategorie.for = "categories";
+    labelSelectCategorie.innerHTML = "Catégorie"
 
-    let inputAddCategorie = document.createElement("input");
-    inputAddCategorie.classList.add("form-style", "add-categories");
-    inputAddCategorie.type = "categories";
-    inputAddCategorie.name = "categories";
+    let selectCategorie = document.createElement("select");
+    selectCategorie.classList.add("form-style", "add-categories");
+    selectCategorie.type = "categories";
+    selectCategorie.name = "categories";
 
     let colorBar = document.createElement("div");
     colorBar.classList.add("color-bar");
@@ -384,3 +384,33 @@ function modal2() {
 checkTokenForAdminMode();
 setupLogout();
 setupModalOpening();
+
+function addListCategoriesInsideForm() {
+    let inputElementCategoriesList = document
+    fetch("http://localhost:5678/api/categories")
+        .then(response => response.json())
+        .then(data => {
+            // Récupération de l'élément input existant
+            let inputElement = document.querySelector("#inputId"); // Remplacez "inputId" par l'ID de votre élément d'entrée
+
+            // Création de l'élément select
+            let selectElement = document.createElement("select");
+
+            // Parcours des catégories récupérées
+            data.forEach(category => {
+            // Création de l'option correspondant à chaque catégorie
+            let option = document.createElement("option");
+            option.value = category.value; // Remplacez "value" par la propriété de valeur de votre objet catégorie
+            option.text = category.name; // Remplacez "name" par la propriété de nom de votre objet catégorie
+
+            // Ajout de l'option à l'élément select
+            selectElement.appendChild(option);
+            });
+
+            // Remplacement de l'élément input par l'élément select
+            inputElement.parentNode.replaceChild(selectElement, inputElement);
+        })
+        .catch(error => {
+            console.error("Une erreur s'est produite lors de la récupération des catégories :", error);
+        });
+};
