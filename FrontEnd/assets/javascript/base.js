@@ -78,9 +78,5 @@ function createCardForHtml(category = 0) {
     });
 };
 
-
-                                    // APPEL DES FONCTIONS //
-
-// Appel des fonctions pour générer les filtres et la galerie des photos actualisés //
 getDataForHtml();
 getFilterForHtml();
