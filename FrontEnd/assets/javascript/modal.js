@@ -337,7 +337,9 @@ function modal2() {
     inputAddTitle.classList.add("form-style", "add-title");
     inputAddTitle.type = "text";
     inputAddTitle.name = "titre";
-    inputAddTitle.maxLength = 50;
+    inputAddTitle.maxLength = 30;
+    inputAddTitle.minLength = 10;
+    inputAddTitle.autocomplete = "off";
 
     let labelSelectCategorie = document.createElement("label");
     labelSelectCategorie.classList.add("label-add-title", "title-form2");
