@@ -348,6 +348,10 @@ function modal2() {
     selectCategorie.type = "categories";
     selectCategorie.name = "categories";
 
+    let optionNullCategories = document.createElement("option");
+    optionNullCategories.value = "vide";
+    optionNullCategories.innerText = "";
+
     let colorBar = document.createElement("div");
     colorBar.classList.add("color-bar");
 
@@ -366,8 +370,9 @@ function modal2() {
     blockAddElementModal2.appendChild(validAddElement);
     formAddPicture.appendChild(labelAddTitle);
     formAddPicture.appendChild(inputAddTitle);
-    formAddPicture.appendChild(labelAddCategorie);
-    formAddPicture.appendChild(inputAddCategorie);
+    formAddPicture.appendChild(labelSelectCategorie);
+    formAddPicture.appendChild(selectCategorie);
+    selectCategorie.appendChild(optionNullCategories);
     blockPictureAndButton.appendChild(blockAddIcon);
     blockPictureAndButton.appendChild(addPictureInput);
     blockPictureAndButton.appendChild(styleInputAddElement);
@@ -378,6 +383,7 @@ function modal2() {
     modalWindow.style.height = "670px";
     blockIcon.style.justifyContent = "space-between";
 
+    addListCategoriesInsideForm();
     returnOnModal1();
 };
 
@@ -386,31 +392,27 @@ setupLogout();
 setupModalOpening();
 
 function addListCategoriesInsideForm() {
-    let inputElementCategoriesList = document
+    let selectElementCategoriesList = document.querySelector("select");
+
     fetch("http://localhost:5678/api/categories")
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 200) {
+                console.log("Requête réussie : Code 200");
+                return response.json();
+            } else {
+                throw new Error(`Erreur de récupération des catégories : Code ${response.status}`);
+            }
+        })
         .then(data => {
-            // Récupération de l'élément input existant
-            let inputElement = document.querySelector("#inputId"); // Remplacez "inputId" par l'ID de votre élément d'entrée
-
-            // Création de l'élément select
-            let selectElement = document.createElement("select");
-
-            // Parcours des catégories récupérées
-            data.forEach(category => {
-            // Création de l'option correspondant à chaque catégorie
+        data.forEach(category => {
             let option = document.createElement("option");
-            option.value = category.value; // Remplacez "value" par la propriété de valeur de votre objet catégorie
-            option.text = category.name; // Remplacez "name" par la propriété de nom de votre objet catégorie
-
-            // Ajout de l'option à l'élément select
-            selectElement.appendChild(option);
-            });
-
-            // Remplacement de l'élément input par l'élément select
-            inputElement.parentNode.replaceChild(selectElement, inputElement);
+            option.value = category.id;
+            option.text = category.name;
+  
+            selectElementCategoriesList.appendChild(option);
+        });
         })
         .catch(error => {
-            console.error("Une erreur s'est produite lors de la récupération des catégories :", error);
-        });
+        console.error(error);
+    });
 };
