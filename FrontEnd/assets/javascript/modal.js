@@ -173,6 +173,61 @@ function addPictureFromModal2() {
 
 
 
+                                    // SECTION DES FONCTIONS //
+
+// Fonction de création de liste catégories pour la balise <select></select> de la modal2 //                                    
+function addListCategoriesInsideForm() {
+    let selectElementCategoriesList = document.querySelector("select");
+
+    fetch("http://localhost:5678/api/categories")
+        .then(response => {
+            if (response.status === 200) {
+                console.log("Requête réussie : Code 200");
+                return response.json();
+            } else {
+                throw new Error(`Erreur de récupération des catégories : Code ${response.status}`);
+            }
+        })
+        .then(data => {
+        data.forEach(category => {
+            let option = document.createElement("option");
+            option.value = category.id;
+            option.text = category.name;
+    
+            selectElementCategoriesList.appendChild(option);
+        });
+        })
+        .catch(error => {
+        console.error(error);
+    });
+};
+
+// Fonction qui insère l'image sélectionnée pour avoir un visuel //
+function showNewPicture() {
+    const blockPictureAndButton = document.querySelector(".block-picture-and-button");
+    const fileInput = document.querySelector(".input-add-element");
+    
+    fileInput.addEventListener("change", function(event) {
+        if (event.target.files.length > 0) {
+            blockPictureAndButton.innerHTML = "";
+            const selectedFile = event.target.files[0];
+
+            const divPictureNewAdd = document.createElement("div");
+            divPictureNewAdd.classList.add("block-new-element-picture");
+
+            const imgElement = document.createElement("img");
+            imgElement.classList.add("add-new-picture-element-selected");
+            
+            const fileURL = URL.createObjectURL(selectedFile);
+            imgElement.src = fileURL;
+    
+            blockPictureAndButton.appendChild(divPictureNewAdd);
+            divPictureNewAdd.appendChild(imgElement);
+        };
+    });
+};
+
+
                             // SECTION DE STRUCTURATION DES MODALES //
 
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
@@ -388,34 +443,9 @@ function modal2() {
 
     addListCategoriesInsideForm();
     returnOnModal1();
+    showNewPicture();
 };
 
 checkTokenForAdminMode();
 setupLogout();
 setupModalOpening();
-
-function addListCategoriesInsideForm() {
-    let selectElementCategoriesList = document.querySelector("select");
-
-    fetch("http://localhost:5678/api/categories")
-        .then(response => {
-            if (response.status === 200) {
-                console.log("Requête réussie : Code 200");
-                return response.json();
-            } else {
-                throw new Error(`Erreur de récupération des catégories : Code ${response.status}`);
-            }
-        })
-        .then(data => {
-        data.forEach(category => {
-            let option = document.createElement("option");
-            option.value = category.id;
-            option.text = category.name;
-  
-            selectElementCategoriesList.appendChild(option);
-        });
-        })
-        .catch(error => {
-        console.error(error);
-    });
-};

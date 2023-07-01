@@ -550,6 +550,7 @@ footer nav ul {
 	background-color: #E8F1F6;
 	border-radius: 3px;
 	margin-bottom: 30px;
+	overflow: hidden;
 }
 
 .block-add-icon {
@@ -653,4 +654,15 @@ footer nav ul {
 	color: #FFFFFF;
 	border: none;
 	margin-top: 32px;
+}
+
+.block-new-element-picture {
+	width: 129px;
+	height: 193px;
+}
+
+.add-new-picture-element-selected {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
