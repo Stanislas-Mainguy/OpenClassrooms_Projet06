@@ -4,7 +4,7 @@ let dataListForHtml = [];
 let dataFilterListForHtml = [];
 
 
-                                    // SECTION DES APPELS //
+                                    // SECTION DES APPELS FETCH//
 
 // Récupération du tableau des images dans l'API //
 function getDataForHtml() {
@@ -78,5 +78,17 @@ function createCardForHtml(category = 0) {
     });
 };
 
+// Fonction qui désactive le bouton "entrer" //
+function enterButtonDisableForBasePage () {
+    const contactElement = document.querySelector("#contact");
+
+    contactElement.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+        }
+    });
+};
+
 getDataForHtml();
 getFilterForHtml();
+enterButtonDisableForBasePage();
