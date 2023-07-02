@@ -535,6 +535,7 @@ footer nav ul {
 /* Section de la modale 2 */
 .block-add-element-modal2 {
 	display: flex;
+	position: relative;
 	flex-direction: column;
 	align-items: center;
 	width: 420px;
@@ -665,4 +666,12 @@ footer nav ul {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.message-modal2 {
+	display: block;
+	position: absolute;
+	height: 18px;
+	bottom: 40px;
+	color: green;
 }
