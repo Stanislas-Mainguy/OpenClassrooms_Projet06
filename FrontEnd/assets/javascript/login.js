@@ -37,3 +37,13 @@ loginButton.addEventListener("click", function (event) {
       loginError.textContent = error.message;
     });
 });
+
+// Fonction pour gérer l'événement "Entrée" //
+function handleEnterKey(event) {
+  if (event.key === "Enter") {
+      event.preventDefault();
+      loginButton.click();
+  };
+};
+
+document.addEventListener("keydown", handleEnterKey);
