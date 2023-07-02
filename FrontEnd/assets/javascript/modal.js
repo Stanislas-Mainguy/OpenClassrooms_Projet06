@@ -407,6 +407,7 @@ function modal2() {
     inputAddTitle.maxLength = 30;
     inputAddTitle.minLength = 10;
     inputAddTitle.autocomplete = "off";
+    inputAddTitle.disabled = true;
 
     let labelSelectCategorie = document.createElement("label");
     labelSelectCategorie.classList.add("label-add-title", "title-form2");
@@ -417,6 +418,7 @@ function modal2() {
     selectCategorie.classList.add("form-style", "add-categories");
     selectCategorie.type = "categories";
     selectCategorie.name = "categories";
+    selectCategorie.disabled = true;
 
     let optionNullCategories = document.createElement("option");
     optionNullCategories.value = "vide";
@@ -478,15 +480,26 @@ function initializeFormValidation() {
     const messageForModal2 = document.querySelector(".message-modal2");
 
     function updateValidateButton() {
-            if (fileInput.files.length === 0) {
+            const title = titleInput.value.trim();
+            const categoryId = parseInt(categorySelect.value);
+
+            if (title === "" && fileInput.files.length === 0) {
+                console.log("Veuillez choisir d'abord une image.");
+                messageForModal2.innerHTML = "Veuillez choisir d'abord une image.";
+                return;
+            } else if (fileInput.files.length === 0) {
                 console.log("Veuillez sélectionner une image.");
+                titleInput.disabled = true;
+                categorySelect.disabled = true;
                 return;
             } else {
                 console.log("Veuillez entrer un titre pour l'image.")
+                titleInput.disabled = false;
+                categorySelect.disabled = false;
                 messageForModal2.innerHTML = "Veuillez entrer un titre pour l'image.";
             }
         
-            const title = titleInput.value.trim();
+            
             if (title === "") {
                 console.log("Veuillez entrer un titre pour l'image.");
                 messageForModal2.innerHTML = "Veuillez entrer un titre pour l'image.";
@@ -501,7 +514,7 @@ function initializeFormValidation() {
                 messageForModal2.innerHTML = "Veuillez sélectionner une catégorie.";
             }
         
-            const categoryId = parseInt(categorySelect.value);
+            
             if (isNaN(categoryId)) {
                 console.log("Veuillez sélectionner une catégorie.");
                 messageForModal2.innerHTML = "Veuillez sélectionner une catégorie";
