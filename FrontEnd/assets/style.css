@@ -645,7 +645,7 @@ footer nav ul {
 }
 
 .add-categories {
-	cursor: pointer;
+	cursor: default;
 }
 
 .validate-picture {
