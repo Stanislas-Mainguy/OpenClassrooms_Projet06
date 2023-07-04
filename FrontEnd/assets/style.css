@@ -448,6 +448,8 @@ footer nav ul {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	gap: 8px;
+	max-height: 442px;
+	overflow-y: auto;
 }
 
 .modal-figures {
