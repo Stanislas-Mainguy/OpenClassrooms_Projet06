@@ -591,6 +591,7 @@ footer nav ul {
  	outline: none;
   	opacity: 0;
 	z-index: 101;
+	cursor: pointer;
 }
 
 .input-add-element::file-selector-button {
