@@ -206,9 +206,14 @@ function addListCategoriesInsideForm() {
 function showNewPicture() {
     const blockPictureAndButton = document.querySelector(".block-picture-and-button");
     const fileInput = document.querySelector(".input-add-element");
-    
+    const messageForModal2 = document.querySelector(".message-modal2");
+    const titleInput = document.querySelector(".add-title");
+    const categorySelect = document.querySelector(".add-categories");
+    const validatePicture = document.querySelector(".validate-picture");
+
     fileInput.addEventListener("change", function(event) {
         if (event.target.files.length > 0) {
+            console.log("File selected");
             blockPictureAndButton.innerHTML = "";
             const selectedFile = event.target.files[0];
 
@@ -220,11 +225,33 @@ function showNewPicture() {
             
             const fileURL = URL.createObjectURL(selectedFile);
             imgElement.src = fileURL;
-    
+
             blockPictureAndButton.appendChild(divPictureNewAdd);
             divPictureNewAdd.appendChild(imgElement);
+
+            messageForModal2.innerHTML = "Veuillez maintenant choisir un titre et une catégorie.";
+            titleInput.disabled = false;
+            categorySelect.disabled = false;
+
+            validateConditions();
         };
     });
+    
+    titleInput.addEventListener("input", validateConditions);
+    categorySelect.addEventListener("change", validateConditions);
+
+    // Fonction qui vérifie les entrées avant d'activer le bouton d'envoi. //
+    function validateConditions() {
+        if (fileInput.files.length > 0 && titleInput.value.trim() !== "" && categorySelect.value !== "") {
+            validatePicture.disabled = false;
+            validatePicture.style.backgroundColor = "#1D6154";
+            validatePicture.style.color = "#FFFFFF";
+            createPostRequestListener();
+        } else {
+            validatePicture.disabled = true;
+            return false;
+        };
+    };
 };
 
 // Fonction qui désactive le bouton "entrer" //
@@ -234,16 +261,16 @@ function enterButtonDisable () {
     modal.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
-        }
+        };
     });
 };
+  
 
 
                             // SECTION DE STRUCTURATION DES MODALES //
 
 // Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
 function modal1(modalWindow) {
-    const addElementButton = document.querySelector("#add-element");
     modalWindow.innerHTML = "";
     
     // Création des éléments liés à l'ouverture de la modale //
@@ -421,8 +448,7 @@ function modal2() {
     selectCategorie.disabled = true;
 
     let optionNullCategories = document.createElement("option");
-    optionNullCategories.value = "vide";
-    optionNullCategories.innerText = "";
+    optionNullCategories.value = "";
 
     let colorBar = document.createElement("div");
     colorBar.classList.add("color-bar");
@@ -434,6 +460,7 @@ function modal2() {
     let validAddElement = document.createElement("button");
     validAddElement.classList.add("button_appearance", "validate-picture");
     validAddElement.innerHTML = "Valider";
+    validAddElement.disabled = true;
 
     // Rattachement des éléments à leurs parents //
     blockIcon.insertBefore(blockArrowLeftIcon, blockIcon.firstChild);
@@ -463,7 +490,6 @@ function modal2() {
     addListCategoriesInsideForm();
     returnOnModal1();
     showNewPicture();
-    initializeFormValidation();
 };
 
 checkTokenForAdminMode();
@@ -471,110 +497,46 @@ setupLogout();
 setupModalOpening();
 
 // test pour post //
-
-function initializeFormValidation() {
+function createPostRequestListener() {
+    const validatePicture = document.querySelector(".validate-picture");
     const fileInput = document.querySelector(".input-add-element");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
-    const validatePicture = document.querySelector(".validate-picture");
-    const messageForModal2 = document.querySelector(".message-modal2");
 
-    function updateValidateButton() {
-            const title = titleInput.value.trim();
-            const categoryId = parseInt(categorySelect.value);
+    validatePicture.addEventListener("click", function() {
+        const formData = new FormData();
 
-            if (title === "" && fileInput.files.length === 0) {
-                console.log("Veuillez choisir d'abord une image.");
-                messageForModal2.innerHTML = "Veuillez choisir d'abord une image.";
-                return;
-            } else if (fileInput.files.length === 0) {
-                console.log("Veuillez sélectionner une image.");
-                titleInput.disabled = true;
-                categorySelect.disabled = true;
-                return;
-            } else {
-                console.log("Veuillez entrer un titre pour l'image.")
-                titleInput.disabled = false;
-                categorySelect.disabled = false;
-                messageForModal2.innerHTML = "Veuillez entrer un titre pour l'image.";
-            }
-        
-            
-            if (title === "") {
-                console.log("Veuillez entrer un titre pour l'image.");
-                messageForModal2.innerHTML = "Veuillez entrer un titre pour l'image.";
-                return;
-            } else if (title.length < minLength) {
-                console.log("Le titre doit contenir au moins 10 caractères.")
-                messageForModal2.innerHTML = "Le titre doit contenir au moins 10 caractères.";
-                messageForModal2.style.color = "red";
-                return;
-            } else {
-                console.log("Veuillez sélectionner une catégorie.");
-                messageForModal2.innerHTML = "Veuillez sélectionner une catégorie.";
-            }
-        
-            
-            if (isNaN(categoryId)) {
-                console.log("Veuillez sélectionner une catégorie.");
-                messageForModal2.innerHTML = "Veuillez sélectionner une catégorie";
-                return;
-            }
+        formData.append("image", fileInput.files[0]);
+        formData.append("title", titleInput.value.trim());
+        formData.append("category", parseInt(categorySelect.value));
 
-        validatePicture.style.backgroundColor = "#1D6154";
-        validatePicture.style.color = "#FFFFFF";
-    }
-  
-    fileInput.addEventListener("input", updateValidateButton);
-    titleInput.addEventListener("input", updateValidateButton);
-    categorySelect.addEventListener("input", updateValidateButton);
-
-    createPostRequestListener();
-
-    function createPostRequestListener() {
-        validatePicture.addEventListener("click", function() {
-            const token = localStorage.getItem("token");
-            
-            if (!token) {
-                console.log("Veuillez vous connecter");
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append("image", fileInput.files[0]);
-            formData.append("title", titleInput.value.trim());
-            formData.append("category", parseInt(categorySelect.value));
-    
-            fetch("http://localhost:5678/api/works", {
-                method: "POST",
-                body: formData
+        fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (response.status === 201) {
+                    console.log("Création réussie !");
+                    return response.json();
+                } else if (response.status === 400) {
+                    console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
+                    throw new Error("Requête incorrecte");
+                } else if (response.status === 401) {
+                    console.log("Non autorisé. Veuillez vous connecter.");
+                    throw new Error("Non autorisé");
+                } else if (response.status === 500) {
+                    console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
+                    throw new Error("Erreur interne du serveur");
+                } else {
+                    console.log("Erreur inattendue :", response.status);
+                    throw new Error("Erreur inattendue");
+                }
+            }) 
+            .then(data => {
+                console.log("Données de la réponse :", data);
             })
-                .then(response => {
-                    if (response.status === 201) {
-                        console.log("Création réussie !");
-                        return response.json();
-                    } else if (response.status === 400) {
-                        console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
-                        throw new Error("Requête incorrecte");
-                    } else if (response.status === 401) {
-                        console.log("Non autorisé. Veuillez vous connecter.");
-                        throw new Error("Non autorisé");
-                    } else if (response.status === 500) {
-                        console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
-                        throw new Error("Erreur interne du serveur");
-                    } else {
-                        console.log("Erreur inattendue :", response.status);
-                        throw new Error("Erreur inattendue");
-                    }
-                }) 
-                .then(data => {
-                    console.log("Données de la réponse :", data);
-                })
-                .catch(error => {
-                    console.error("Une erreur s'est produite lors de la requête POST :", error);
-                });
-        });
-    }
-    
-    validatePicture.addEventListener("click", updateValidateButton);
+            .catch(error => {
+                console.error("Une erreur s'est produite lors de la requête POST :", error);
+            })
+    });
 };
