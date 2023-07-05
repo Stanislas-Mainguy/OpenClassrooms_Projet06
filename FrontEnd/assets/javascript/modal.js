@@ -264,7 +264,7 @@ function checkConditions() {
     };
 };
 
-// Fonction pour l'envoi du nouveau fichier d'image /
+// Fonction pour l'envoi du nouveau fichier d'image //
 function createPostRequestListener() {
     const validatePicture = document.querySelector(".validate-picture");
     const titleInput = document.querySelector(".add-title");
