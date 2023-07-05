@@ -654,7 +654,7 @@ footer nav ul {
 }
 
 .add-categories {
-	cursor: default;
+	cursor: pointer;
 }
 
 .validate-picture {
@@ -664,6 +664,7 @@ footer nav ul {
 	color: #FFFFFF;
 	border: none;
 	margin-top: 32px;
+	cursor: pointer;
 }
 
 .block-new-element-picture {
