@@ -417,7 +417,7 @@ function modal1(modalWindow) {
                 trashIcon.classList.add("fa-regular", "fa-trash-can");
 
                 // Création d'un eventListener pour tous les éléments trashIcon //
-                trashIcon.addEventListener("click", function() {
+                blockIcon2.addEventListener("click", function() {
                     let myHeaders = new Headers();
                     myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
                     
@@ -462,7 +462,6 @@ function modal1(modalWindow) {
     setupModalClosing();
     changeToModal2();
     enterButtonDisable();
-    deleteAll();
 };
 
 // Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
@@ -592,55 +591,4 @@ if (performance.navigation.type === 1) {
     console.log("La page a été rechargée");
   } else {
     console.log("La page n'a pas été rechargée");
-  }
-  
-
-  function deleteAll() {
-    const buttonDeleteAllElement = document.querySelector("#array-element")
-    buttonDeleteAllElement.addEventListener("click", function() {
-        const trashIcons = document.querySelectorAll(".trash-icon");
-
-        for (let i = 11; i < trashIcons.length; i++) {
-            const trashIcon = trashIcons[i];
-
-            let myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-
-            let elementId = trashIcon.parentElement.parentElement.dataset.elementId;
-
-            fetch("http://localhost:5678/api/works/" + elementId, {
-                method: "DELETE",
-                headers: myHeaders,
-            })
-            .then(response => {
-                if (response.status === 200) {
-                    console.log("Suppression réussie !");
-                    return response.json();
-                } else if (response.status === 401) {
-                    console.log("Non autorisé. Veuillez vous connecter.");
-                    throw new Error("Non autorisé");
-                } else if (response.status === 500) {
-                    console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
-                    throw new Error("Erreur interne du serveur");
-                } else {
-                    console.log("Erreur inattendue :", response.status);
-                    throw new Error("Erreur inattendue");
-                }
-            })
-            .then(data => {
-                console.log("Données de la réponse :", data);
-                // Supprimer l'élément parent du trashIcon (figure)
-                trashIcon.parentElement.parentElement.remove();
-            })
-            .catch(error => {
-                console.error("Une erreur s'est produite lors de la requête DELETE :", error);
-            });
-        }
-    });
-  }
-  
-  
-  
-  
-  
-  
+}
