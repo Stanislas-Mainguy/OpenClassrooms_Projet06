@@ -190,6 +190,12 @@ article {
 	cursor: pointer;
 }
 
+.filter.active {
+	background-color: #1D6154;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+
 .gallery img {
 	width: 100%;
 }
