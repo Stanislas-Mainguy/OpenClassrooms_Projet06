@@ -203,134 +203,132 @@ function addListCategoriesInsideForm() {
 };
 
 // Fonction qui insère l'image sélectionnée pour avoir un visuel //
-let selectedImg = null;
-let formData = new FormData();
-
 function showNewPicture() {
     const blockPictureAndButton = document.querySelector(".block-picture-and-button");
     const fileInput = document.querySelector(".input-add-element");
     const messageForModal2 = document.querySelector(".message-modal2");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
-  
-    fileInput.addEventListener("change", function(event) {
+
+    fileInput.addEventListener("change", function (event) {
         if (event.target.files.length > 0) {
             blockPictureAndButton.innerHTML = "";
             const selectedFile = event.target.files[0];
-    
+
             const divPictureNewAdd = document.createElement("div");
             divPictureNewAdd.classList.add("block-new-element-picture");
-    
+
             const imgElement = document.createElement("img");
             imgElement.classList.add("add-new-picture-element-selected");
-    
+
             const fileURL = URL.createObjectURL(selectedFile);
             imgElement.src = fileURL;
-    
+
             blockPictureAndButton.appendChild(divPictureNewAdd);
             divPictureNewAdd.appendChild(imgElement);
 
             selectedImg = selectedFile;
-    
+
             messageForModal2.innerHTML = "Veuillez maintenant choisir un titre et une catégorie.";
             titleInput.disabled = false;
             categorySelect.disabled = false;
-            
-            checkConditions();
+            categorySelect.style.cursor = "pointer";
+            createPostRequestListener();
         };
-    });
-  
-    titleInput.addEventListener("input", function() {
-        checkConditions();
-    });
-  
-    categorySelect.addEventListener("change", function() {
-        checkConditions();
     });
 };
 
-// Fonction de vérification des conditions pour l'affichage du bouton d'envoi de l'élément. //
-function checkConditions() {
+// Fonction de validation d'état pour les input du modal2 //
+function checkValidity() {
+    const validatePicture = document.querySelector(".validate-picture");
+    const messageForModal2 = document.querySelector(".message-modal2");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
-    const validatePicture = document.querySelector(".validate-picture");
-
     if (selectedImg && titleInput.value.trim() !== "" && categorySelect.value !== "") {
-        validatePicture.disabled = false;
-        validatePicture.style.backgroundColor = "#1D6154";
-        validatePicture.style.color = "#FFFFFF";
-        createPostRequestListener();
+      validatePicture.disabled = false;
+      validatePicture.style.backgroundColor = "#1D6154";
+      validatePicture.style.color = "#FFFFFF";
+      validatePicture.style.cursor = "pointer";
+      messageForModal2.innerHTML = "Veuillez maintenant valider votre requête.";
     } else {
-        validatePicture.disabled = true;
+      validatePicture.disabled = true;
+      validatePicture.style.backgroundColor = "";
+      validatePicture.style.color = "";
+      validatePicture.style.cursor = "";
     };
 };
 
-// Fonction pour l'envoi du nouveau fichier d'image //
+// Fonction pour l'envoi du fichier image //
 function createPostRequestListener() {
     const validatePicture = document.querySelector(".validate-picture");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
+    const messageForModal2 = document.querySelector(".message-modal2");
+    const gallery = document.querySelector(".gallery");
+  
+    titleInput.addEventListener("keyup", checkValidity);
+    categorySelect.addEventListener("change", checkValidity);
 
-    validatePicture.addEventListener("click", function() {
-        if (validatePicture.disabled) {
-            formData = new FormData();
-        } else {
-            let myHeaders = new Headers();
-            formData = new FormData();
-            myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"))
-            formData.append("image", selectedImg);
-            formData.append("title", titleInput.value.trim());
-            formData.append("category", parseInt(categorySelect.value));
+  
+    validatePicture.addEventListener("click", function (event) {
+        event.preventDefault();
+        const formData = new FormData();
+        let myHeaders = new Headers();
+  
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        formData.append("image", selectedImg);
+        formData.append("title", titleInput.value.trim());
+        formData.append("category", parseInt(categorySelect.value));
+    
+        fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: myHeaders,
+            body: formData,
+        })
+            .then((response) => {
+            if (response.status === 201) {
+                console.log("Création réussie !");
 
-            fetch("http://localhost:5678/api/works", {
-                method: "POST",
-                headers: myHeaders,
-                body: formData,
+                let figure = document.createElement("figure");
+                let img = document.createElement("img");
+                img.src = formData.append("image", selectedImg);
+                img.title = formData.append("title", titleInput.value.trim());
+
+                gallery.appendChild(figure);
+                figure.appendChild(img);
+
+                closeModal();
+            } else if (response.status === 400) {
+                console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
+                messageForModal2.innerHTML = "Requête incorrecte. Veuillez vérifier les données envoyées.";
+                messageForModal2.style.color = "red";
+                throw new Error("Requête incorrecte");
+            } else if (response.status === 401) {
+                console.log("Non autorisé. Veuillez vous connecter.");
+                messageForModal2.innerHTML = "Non autorisé. Veuillez vous connecter.";
+                messageForModal2.style.color = "red";
+                throw new Error("Non autorisé");
+            } else if (response.status === 500) {
+                console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
+                messageForModal2.innerHTML = "Erreur interne du serveur. Veuillez réessayer ultérieurement.";
+                messageForModal2.style.color = "red";
+                throw new Error("Erreur interne du serveur");
+            } else {
+                console.log("Erreur inattendue :", response.status);
+                messageForModal2.innerHTML = "Erreur inattendue !";
+                messageForModal2.style.color = "red";
+                throw new Error("Erreur inattendue");
+            }
             })
-                .then(response => {
-                    if (response.status === 201) {
-                        console.log("Création réussie !");
-                        return response.json();
-                    } else if (response.status === 400) {
-                        console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
-                        throw new Error("Requête incorrecte");
-                    } else if (response.status === 401) {
-                        console.log("Non autorisé. Veuillez vous connecter.");
-                        throw new Error("Non autorisé");
-                    } else if (response.status === 500) {
-                        console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
-                        throw new Error("Erreur interne du serveur");
-                    } else {
-                        console.log("Erreur inattendue :", response.status);
-                        throw new Error("Erreur inattendue");
-                    }
-                }) 
-                .then(data => {
-                    console.log("Données de la réponse :", data);
-                })
-                .catch(error => {
-                    console.error("Une erreur s'est produite lors de la requête POST :", error);
-                });
-        };
+            .then((data) => {
+            console.log("Données de la réponse :", data);
+            })
+            .catch((error) => {
+            console.error("Une erreur s'est produite lors de la requête POST :", error);
+            });
     });
-    titleInput.addEventListener("input", function () {
-        if (titleInput.value.trim() === "") {
-          validatePicture.disabled = true;
-        }
-      });
-      
-      categorySelect.addEventListener("change", function () {
-        if (categorySelect.value === "") {
-          formData.delete("category");
-        } else {
-          formData.set("category", parseInt(categorySelect.value));
-        }
-      });
-      
-      titleInput.addEventListener("change", function () {
-        formData.set("title", titleInput.value.trim());
-      });     
 };
+  
   
 
 // Fonction qui désactive le bouton "entrer" //

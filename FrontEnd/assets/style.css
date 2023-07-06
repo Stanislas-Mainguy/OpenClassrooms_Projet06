@@ -654,10 +654,6 @@ footer nav ul {
 	padding-right: 15px;
 }
 
-.add-categories {
-	cursor: pointer;
-}
-
 .validate-picture {
 	width: 237px;
 	background-color: #A7A7A7;
@@ -665,7 +661,6 @@ footer nav ul {
 	color: #FFFFFF;
 	border: none;
 	margin-top: 32px;
-	cursor: pointer;
 }
 
 .block-new-element-picture {
