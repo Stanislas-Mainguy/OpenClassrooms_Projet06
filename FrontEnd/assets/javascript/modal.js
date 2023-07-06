@@ -204,6 +204,7 @@ function addListCategoriesInsideForm() {
 
 // Fonction qui insère l'image sélectionnée pour avoir un visuel //
 let selectedImg = null;
+let formData = new FormData();
 
 function showNewPicture() {
     const blockPictureAndButton = document.querySelector(".block-picture-and-button");
@@ -271,44 +272,64 @@ function createPostRequestListener() {
     const categorySelect = document.querySelector(".add-categories");
 
     validatePicture.addEventListener("click", function() {
-        const formData = new FormData();
-        let myHeaders = new Headers();
+        if (validatePicture.disabled) {
+            formData = new FormData();
+        } else {
+            let myHeaders = new Headers();
+            formData = new FormData();
+            myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"))
+            formData.append("image", selectedImg);
+            formData.append("title", titleInput.value.trim());
+            formData.append("category", parseInt(categorySelect.value));
 
-        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"))
-        formData.append("image", selectedImg);
-        formData.append("title", titleInput.value.trim());
-        formData.append("category", parseInt(categorySelect.value));
-
-        fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            headers: myHeaders,
-            body: formData,
-        })
-            .then(response => {
-                if (response.status === 201) {
-                    console.log("Création réussie !");
-                    return response.json();
-                } else if (response.status === 400) {
-                    console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
-                    throw new Error("Requête incorrecte");
-                } else if (response.status === 401) {
-                    console.log("Non autorisé. Veuillez vous connecter.");
-                    throw new Error("Non autorisé");
-                } else if (response.status === 500) {
-                    console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
-                    throw new Error("Erreur interne du serveur");
-                } else {
-                    console.log("Erreur inattendue :", response.status);
-                    throw new Error("Erreur inattendue");
-                }
-            }) 
-            .then(data => {
-                console.log("Données de la réponse :", data);
+            fetch("http://localhost:5678/api/works", {
+                method: "POST",
+                headers: myHeaders,
+                body: formData,
             })
-            .catch(error => {
-                console.error("Une erreur s'est produite lors de la requête POST :", error);
-            })
+                .then(response => {
+                    if (response.status === 201) {
+                        console.log("Création réussie !");
+                        return response.json();
+                    } else if (response.status === 400) {
+                        console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
+                        throw new Error("Requête incorrecte");
+                    } else if (response.status === 401) {
+                        console.log("Non autorisé. Veuillez vous connecter.");
+                        throw new Error("Non autorisé");
+                    } else if (response.status === 500) {
+                        console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
+                        throw new Error("Erreur interne du serveur");
+                    } else {
+                        console.log("Erreur inattendue :", response.status);
+                        throw new Error("Erreur inattendue");
+                    }
+                }) 
+                .then(data => {
+                    console.log("Données de la réponse :", data);
+                })
+                .catch(error => {
+                    console.error("Une erreur s'est produite lors de la requête POST :", error);
+                });
+        };
     });
+    titleInput.addEventListener("input", function () {
+        if (titleInput.value.trim() === "") {
+          validatePicture.disabled = true;
+        }
+      });
+      
+      categorySelect.addEventListener("change", function () {
+        if (categorySelect.value === "") {
+          formData.delete("category");
+        } else {
+          formData.set("category", parseInt(categorySelect.value));
+        }
+      });
+      
+      titleInput.addEventListener("change", function () {
+        formData.set("title", titleInput.value.trim());
+      });     
 };
   
 
@@ -384,7 +405,7 @@ function modal1(modalWindow) {
     blockButton.appendChild(buttonDeleteAllElement);
 
     // Changement de taille pour la modale //
-    modalWindow.style.height = "731px";
+    modalWindow.style.height = "auto";
     
     // Création des éléments pour affichage des photos dans arrayElement //
     fetch("http://localhost:5678/api/works")

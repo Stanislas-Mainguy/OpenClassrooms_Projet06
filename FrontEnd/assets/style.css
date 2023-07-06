@@ -474,6 +474,7 @@ footer nav ul {
 	flex-direction: column;
 	gap: 23px;
 	margin-top: 38px;
+	margin-bottom: 48px;
 }
 
 .add-button {
