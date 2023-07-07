@@ -233,7 +233,7 @@ function showNewPicture() {
             titleInput.disabled = false;
             categorySelect.disabled = false;
             categorySelect.style.cursor = "pointer";
-            createPostRequestListener();
+            createPostRequest();
         };
     });
 };
@@ -259,7 +259,7 @@ function checkValidity() {
 };
 
 // Fonction pour l'envoi du fichier image //
-function createPostRequestListener() {
+function createPostRequest() {
     const validatePicture = document.querySelector(".validate-picture");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
@@ -436,7 +436,8 @@ function modal1(modalWindow) {
                 trashIcon.classList.add("fa-regular", "fa-trash-can");
 
                 // Création d'un eventListener pour tous les éléments trashIcon //
-                blockIcon2.addEventListener("click", function() {
+                blockIcon2.addEventListener("click", function(event) {
+                    event.preventDefault();
                     let myHeaders = new Headers();
                     myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
                     
