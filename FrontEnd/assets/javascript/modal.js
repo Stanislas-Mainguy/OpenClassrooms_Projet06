@@ -505,6 +505,14 @@ function modal2() {
     modalTitle.classList.add("modal-title");
     modalTitle.innerHTML = "Ajout photo";
 
+    let colorBar = document.createElement("div");
+    colorBar.classList.add("color-bar", "bar-modal2");
+
+    let formAddPicture = document.createElement("form");
+    formAddPicture.classList.add("form-add-picture");
+    formAddPicture.action = "#";
+    formAddPicture.methode = "post";
+
     let blockPictureAndButton = document.createElement("div");
     blockPictureAndButton.classList.add("block-picture-and-button");
     
@@ -527,11 +535,6 @@ function modal2() {
 
     let infoAddInput = document.createElement("p");
     infoAddInput.innerHTML = "jpg, png : 4mo max";
-
-    let formAddPicture = document.createElement("form");
-    formAddPicture.classList.add("form-add-picture");
-    formAddPicture.action = "#";
-    formAddPicture.methode = "post";
 
     let labelAddTitle = document.createElement("label");
     labelAddTitle.classList.add("label-add-title");
@@ -561,16 +564,14 @@ function modal2() {
     let optionNullCategories = document.createElement("option");
     optionNullCategories.value = "";
 
-    let colorBar = document.createElement("div");
-    colorBar.classList.add("color-bar");
-
     let messageForModal2 = document.createElement("div");
     messageForModal2.classList.add("message-modal2");
     messageForModal2.innerHTML = "Veuillez sélectionner une image."
 
-    let validAddElement = document.createElement("button");
+    let validAddElement = document.createElement("input");
     validAddElement.classList.add("button_appearance", "validate-picture");
-    validAddElement.innerHTML = "Valider";
+    validAddElement.type = "submit";
+    validAddElement.value = "Valider";
     validAddElement.disabled = true;
 
     // Rattachement des éléments à leurs parents //
@@ -578,15 +579,15 @@ function modal2() {
     blockArrowLeftIcon.appendChild(arrowLeft);
     modalContent.appendChild(blockAddElementModal2); 
     blockAddElementModal2.appendChild(modalTitle);
-    blockAddElementModal2.appendChild(blockPictureAndButton);
     blockAddElementModal2.appendChild(formAddPicture);
     blockAddElementModal2.appendChild(colorBar);
     blockAddElementModal2.appendChild(messageForModal2);
-    blockAddElementModal2.appendChild(validAddElement);
+    formAddPicture.appendChild(blockPictureAndButton);
     formAddPicture.appendChild(labelAddTitle);
     formAddPicture.appendChild(inputAddTitle);
     formAddPicture.appendChild(labelSelectCategorie);
     formAddPicture.appendChild(selectCategorie);
+    formAddPicture.appendChild(validAddElement);
     selectCategorie.appendChild(optionNullCategories);
     blockPictureAndButton.appendChild(blockAddIcon);
     blockPictureAndButton.appendChild(addPictureInput);
