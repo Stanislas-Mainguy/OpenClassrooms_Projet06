@@ -265,7 +265,7 @@ function checkValidity() {
 
 // Fonction pour l'envoi du fichier image //
 function createPostRequest() {
-    const validatePicture = document.querySelector(".validate-picture");
+    const validatePicture = document.querySelector("#validate-picture");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
     const messageForModal2 = document.querySelector(".message-modal2");
