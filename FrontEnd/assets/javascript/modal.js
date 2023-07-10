@@ -162,15 +162,6 @@ function setupLogout() {
     });
 };
 
-// Ajout photo sur modal2 //
-function addPictureFromModal2() {
-    const addPictureButton = document.querySelector(".add-new-picture");
-
-    addPictureButton.addEventListener("click", function() {
-
-    });
-};
-
 
 
                                     // SECTION DES FONCTIONS //
@@ -270,12 +261,13 @@ function createPostRequest() {
     const categorySelect = document.querySelector(".add-categories");
     const messageForModal2 = document.querySelector(".message-modal2");
     const gallery = document.querySelector(".gallery");
-  
+    
     titleInput.addEventListener("keyup", checkValidity);
     categorySelect.addEventListener("change", checkValidity);
 
   
-    validatePicture.addEventListener("click", function () {
+    validatePicture.addEventListener("click", function (e) {
+        e.preventDefault();
         const formData = new FormData();
         let myHeaders = new Headers();
   
@@ -301,7 +293,7 @@ function createPostRequest() {
                 gallery.appendChild(figure);
                 figure.appendChild(img);
 
-                closeModal();
+                //closeModal();//
             } else if (response.status === 400) {
                 console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
                 messageForModal2.innerHTML = "Requête incorrecte. Veuillez vérifier les données envoyées.";
@@ -324,9 +316,9 @@ function createPostRequest() {
                 throw new Error("Erreur inattendue");
             }
             })
-            .then((data) => {
+            /*.then((data) => {
                 console.log("Données de la réponse :", data);
-            })
+            })*/
             .catch((error) => {
                 console.error("Une erreur s'est produite lors de la requête POST :", error);
             });
@@ -465,9 +457,9 @@ function modal1(modalWindow) {
                             throw new Error("Erreur inattendue");
                         }
                     })
-                    .then(data => {
+                    /*.then(data => {
                         console.log("Données de la réponse :", data);
-                    })
+                    })*/
                     .catch(error => {
                         console.error("Une erreur s'est produite lors de la requête DELETE :", error);
                     });
