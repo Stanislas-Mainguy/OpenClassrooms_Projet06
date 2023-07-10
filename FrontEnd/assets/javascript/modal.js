@@ -209,6 +209,7 @@ function showNewPicture() {
     const messageForModal2 = document.querySelector(".message-modal2");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
+    let optionNullCategories = document.querySelector("option");
 
     fileInput.addEventListener("change", function (event) {
         if (event.target.files.length > 0) {
@@ -231,8 +232,12 @@ function showNewPicture() {
 
             messageForModal2.innerHTML = "Veuillez maintenant choisir un titre et une catégorie.";
             titleInput.disabled = false;
+            titleInput.placeholder = "";
+            titleInput.style.cursor = "text";
             categorySelect.disabled = false;
             categorySelect.style.cursor = "pointer";
+            optionNullCategories.text = "";
+
             createPostRequest();
         };
     });
@@ -240,7 +245,7 @@ function showNewPicture() {
 
 // Fonction de validation d'état pour les input du modal2 //
 function checkValidity() {
-    const validatePicture = document.querySelector(".validate-picture");
+    const validatePicture = document.querySelector("#validate-picture");
     const messageForModal2 = document.querySelector(".message-modal2");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
@@ -270,8 +275,7 @@ function createPostRequest() {
     categorySelect.addEventListener("change", checkValidity);
 
   
-    validatePicture.addEventListener("click", function (event) {
-        event.preventDefault();
+    validatePicture.addEventListener("click", function () {
         const formData = new FormData();
         let myHeaders = new Headers();
   
@@ -321,10 +325,10 @@ function createPostRequest() {
             }
             })
             .then((data) => {
-            console.log("Données de la réponse :", data);
+                console.log("Données de la réponse :", data);
             })
             .catch((error) => {
-            console.error("Une erreur s'est produite lors de la requête POST :", error);
+                console.error("Une erreur s'est produite lors de la requête POST :", error);
             });
     });
 };
@@ -510,8 +514,8 @@ function modal2() {
 
     let formAddPicture = document.createElement("form");
     formAddPicture.classList.add("form-add-picture");
+    formAddPicture.method = "post";
     formAddPicture.action = "#";
-    formAddPicture.methode = "post";
 
     let blockPictureAndButton = document.createElement("div");
     blockPictureAndButton.classList.add("block-picture-and-button");
@@ -545,6 +549,7 @@ function modal2() {
     inputAddTitle.classList.add("form-style", "add-title");
     inputAddTitle.type = "text";
     inputAddTitle.name = "titre";
+    inputAddTitle.placeholder = "Veuillez d'abord choisir une image.";
     inputAddTitle.maxLength = 30;
     inputAddTitle.minLength = 10;
     inputAddTitle.autocomplete = "off";
@@ -563,13 +568,15 @@ function modal2() {
 
     let optionNullCategories = document.createElement("option");
     optionNullCategories.value = "";
+    optionNullCategories.text = "Veuillez d'abord choisir une image.";
 
     let messageForModal2 = document.createElement("div");
     messageForModal2.classList.add("message-modal2");
     messageForModal2.innerHTML = "Veuillez sélectionner une image."
 
     let validAddElement = document.createElement("input");
-    validAddElement.classList.add("button_appearance", "validate-picture");
+    validAddElement.classList.add("button_appearance");
+    validAddElement.id = "validate-picture";
     validAddElement.type = "submit";
     validAddElement.value = "Valider";
     validAddElement.disabled = true;

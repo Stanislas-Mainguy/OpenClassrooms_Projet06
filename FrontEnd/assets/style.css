@@ -238,7 +238,7 @@ article {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+#post-button-contact {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -447,6 +447,7 @@ footer nav ul {
 	justify-content: center;
 	align-items: center;
 	box-sizing: border-box;
+	height: auto;
 }
 
 #array-element {
@@ -651,14 +652,18 @@ footer nav ul {
 	border: none;
 	padding-left: 15px;
 	padding-right: 15px;
+	cursor: not-allowed;
 }
 
-.validate-picture {
+#validate-picture {
 	width: 237px;
 	background-color: #A7A7A7;
 	border-radius: 60px;
 	color: #FFFFFF;
 	border: none;
+	margin-left: auto;
+	margin-right: auto;
+	cursor: not-allowed;
 }
 
 .block-new-element-picture {
@@ -676,15 +681,15 @@ footer nav ul {
 	display: block;
 	position: absolute;
 	height: 18px;
-	bottom: 92px;
+	bottom: 40px;
 	color: green;
 }
 
 .bar-modal2 {
 	position: absolute;
-	bottom: 123px;
+	bottom: 70px;
 }
 
 .add-categories {
-	margin-bottom: 53px;
+	margin-bottom: 79px;
 }
