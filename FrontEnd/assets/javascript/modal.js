@@ -438,9 +438,8 @@ function modal1(modalWindow) {
                         headers: myHeaders,
                     })
                     .then(response => {
-                        if (response.status === 200) {
+                        if (response.status === 200 || response.status === 204) {
                             console.log("Suppression réussie !");
-                            return response.json();
                         } else if (response.status === 401) {
                             console.log("Non autorisé. Veuillez vous connecter.");
                             throw new Error("Non autorisé");
@@ -449,7 +448,7 @@ function modal1(modalWindow) {
                             throw new Error("Erreur interne du serveur");
                         } else {
                             console.log("Erreur inattendue :", response.status);
-                            throw new Error("Erreur inattendue");
+                            throw new Error("Erreur inattendue : " + response.status);
                         }
                     })
                     .catch(error => {
