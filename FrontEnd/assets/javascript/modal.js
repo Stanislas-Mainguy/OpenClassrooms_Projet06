@@ -287,7 +287,7 @@ function createPostRequest() {
 
                 let figure = document.createElement("figure");
                 let img = document.createElement("img");
-                img.src = formData.append("image", selectedImg);
+                img.src = URL.createObjectURL(selectedImg);
                 img.title = formData.append("title", titleInput.value.trim());
 
                 gallery.appendChild(figure);
