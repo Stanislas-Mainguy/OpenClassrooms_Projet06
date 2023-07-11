@@ -292,8 +292,6 @@ function createPostRequest() {
 
                 gallery.appendChild(figure);
                 figure.appendChild(img);
-
-                //closeModal();//
             } else if (response.status === 400) {
                 console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
                 messageForModal2.innerHTML = "Requête incorrecte. Veuillez vérifier les données envoyées.";
@@ -316,9 +314,6 @@ function createPostRequest() {
                 throw new Error("Erreur inattendue");
             }
             })
-            /*.then((data) => {
-                console.log("Données de la réponse :", data);
-            })*/
             .catch((error) => {
                 console.error("Une erreur s'est produite lors de la requête POST :", error);
             });
@@ -457,9 +452,6 @@ function modal1(modalWindow) {
                             throw new Error("Erreur inattendue");
                         }
                     })
-                    /*.then(data => {
-                        console.log("Données de la réponse :", data);
-                    })*/
                     .catch(error => {
                         console.error("Une erreur s'est produite lors de la requête DELETE :", error);
                     });
