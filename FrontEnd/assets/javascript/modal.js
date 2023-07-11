@@ -427,8 +427,8 @@ function modal1(modalWindow) {
                 trashIcon.classList.add("fa-regular", "fa-trash-can");
 
                 // Création d'un eventListener pour tous les éléments trashIcon //
-                blockIcon2.addEventListener("click", function(event) {
-                    event.preventDefault();
+                blockIcon2.addEventListener("click", function(e) {
+                    e.preventDefault();
                     let myHeaders = new Headers();
                     myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
                     
@@ -499,6 +499,7 @@ function modal2() {
     formAddPicture.classList.add("form-add-picture");
     formAddPicture.method = "post";
     formAddPicture.action = "#";
+    formAddPicture.enctype = "multipart/form-data";
 
     let blockPictureAndButton = document.createElement("div");
     blockPictureAndButton.classList.add("block-picture-and-button");
