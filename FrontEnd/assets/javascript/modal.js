@@ -323,7 +323,7 @@ function createPostRequest() {
   
 
 // Fonction qui désactive le bouton "entrer" //
-function enterButtonDisable () {
+function enterButtonDisable() {
     const modal = document.querySelector("#modal");
 
     modal.addEventListener("keydown", function(event) {
