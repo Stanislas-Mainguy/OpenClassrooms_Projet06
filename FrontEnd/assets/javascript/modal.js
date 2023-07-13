@@ -162,6 +162,10 @@ function setupLogout() {
     });
 };
 
+// EvenListener qui clean le storage quand la personne quitte la page internet //
+window.addEventListener("beforeunload", function() {
+    localStorage.clear();
+});
 
 
                                     // SECTION DES FONCTIONS //
@@ -261,10 +265,11 @@ function createPostRequest() {
     const categorySelect = document.querySelector(".add-categories");
     const messageForModal2 = document.querySelector(".message-modal2");
     const gallery = document.querySelector(".gallery");
+    const modalWindow = document.querySelector("#modal");
+    const overlay = document.querySelector("#overlay");
     
     titleInput.addEventListener("keyup", checkValidity);
     categorySelect.addEventListener("change", checkValidity);
-
   
     validatePicture.addEventListener("click", function (e) {
         e.preventDefault();
@@ -287,11 +292,17 @@ function createPostRequest() {
 
                 let figure = document.createElement("figure");
                 let img = document.createElement("img");
+                let figcaption = document.createElement("figcaption");
                 img.src = URL.createObjectURL(selectedImg);
-                img.title = formData.append("title", titleInput.value.trim());
+                let titleText = document.createTextNode(titleInput.value.trim());
+                modalWindow.style.display = "none";
+                overlay.style.display = "none";
+                modalWindow.setAttribute("aria-hidden", "true");
 
                 gallery.appendChild(figure);
                 figure.appendChild(img);
+                figure.appendChild(figcaption);
+                figcaption.appendChild(titleText);
             } else if (response.status === 400) {
                 console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
                 messageForModal2.innerHTML = "Requête incorrecte. Veuillez vérifier les données envoyées.";
@@ -332,15 +343,11 @@ function enterButtonDisable() {
         };
     });
 };
-  
 
-
-                            // SECTION DE STRUCTURATION DES MODALES //
-
-// Fonction d'ouverture de la modale avec création des éléments internes à celle-ci //
+// Fonction pour créer la modal //
 function modal1(modalWindow) {
     modalWindow.innerHTML = "";
-    
+
     // Création des éléments liés à l'ouverture de la modale //
     let blockIcon = document.createElement("div");
     blockIcon.classList.add("block-icon");
@@ -370,6 +377,9 @@ function modal1(modalWindow) {
     let blockButton = document.createElement("div");
     blockButton.classList.add("block-button");
 
+    let messageForModal1 = document.createElement("div");
+    messageForModal1.classList.add("message-modal1");
+
     let buttonAddElement = document.createElement("button");
     buttonAddElement.id = "add-element";
     buttonAddElement.classList.add("add-button", "button_appearance");
@@ -390,17 +400,27 @@ function modal1(modalWindow) {
     blockAddingElement.appendChild(arrayElement);
     blockAddingElement.appendChild(colorBar);
     blockAddingElement.appendChild(blockButton);
+    blockButton.appendChild(messageForModal1);
     blockButton.appendChild(buttonAddElement);
     blockButton.appendChild(buttonDeleteAllElement);
 
     // Changement de taille pour la modale //
     modalWindow.style.height = "auto";
-    
-    // Création des éléments pour affichage des photos dans arrayElement //
+
+    // Appel de la fonction pour afficher les éléments dans le tableau //
+    displayElementsInArray(arrayElement);
+
+    // Autres fonctions et configurations pour la modal //
+    setupModalClosing();
+    changeToModal2();
+    enterButtonDisable();
+};
+
+// Fonction pour afficher les éléments dans le tableau //
+function displayElementsInArray(arrayElement) {
     fetch("http://localhost:5678/api/works")
         .then((response) => response.json())
         .then((data) => {
-            elements = data;
             arrayElement.innerHTML = "";
             data.forEach((element) => {
                 let figure = document.createElement("figure");
@@ -413,7 +433,7 @@ function modal1(modalWindow) {
 
                 let figcaption = document.createElement("figcaption");
                 figcaption.innerHTML = "éditer";
-                
+
                 let blockIcon1 = document.createElement("div");
                 blockIcon1.classList.add("modal-icon", "multi-arrows");
 
@@ -422,54 +442,68 @@ function modal1(modalWindow) {
 
                 let blockIcon2 = document.createElement("div");
                 blockIcon2.classList.add("modal-icon", "trash-icon");
-                
+
                 let trashIcon = document.createElement("i");
                 trashIcon.classList.add("fa-regular", "fa-trash-can");
 
-                // Création d'un eventListener pour tous les éléments trashIcon //
-                blockIcon2.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    let myHeaders = new Headers();
-                    myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-                    
-                    // Appel de la méthode DELETE pour l'API //
-                    fetch("http://localhost:5678/api/works/" + element.id, {
-                        method: "DELETE",
-                        headers: myHeaders,
-                    })
-                    .then(response => {
-                        if (response.status === 200 || response.status === 204) {
-                            console.log("Suppression réussie !");
-                        } else if (response.status === 401) {
-                            console.log("Non autorisé. Veuillez vous connecter.");
-                            throw new Error("Non autorisé");
-                        } else if (response.status === 500) {
-                            console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
-                            throw new Error("Erreur interne du serveur");
-                        } else {
-                            console.log("Erreur inattendue :", response.status);
-                            throw new Error("Erreur inattendue : " + response.status);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Une erreur s'est produite lors de la requête DELETE :", error);
-                    });
-                });
-                
                 // Rattachement des éléments à leurs parents //
-                arrayElement.appendChild(figure);
                 figure.appendChild(img);
                 figure.appendChild(figcaption);
                 figure.appendChild(blockIcon1);
                 figure.appendChild(blockIcon2);
                 blockIcon1.appendChild(arrowIcon);
-                blockIcon2.appendChild(trashIcon);     
+                blockIcon2.appendChild(trashIcon);
+                arrayElement.appendChild(figure);
+
+                // Ajout de l'eventListener sur l'icône de suppression //
+                blockIcon2.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    deleteElement(element.id, arrayElement);
+                });
+            });
         });
-    });
-    setupModalClosing();
-    changeToModal2();
-    enterButtonDisable();
 };
+
+// Fonction pour supprimer un élément //
+function deleteElement(elementId, arrayElement) {
+    const messageForModal1 = document.querySelector(".message-modal1");
+    const gallery = document.querySelector(".gallery");
+
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+
+    // Appel de la méthode DELETE pour l'API //
+    fetch("http://localhost:5678/api/works/" + elementId, {
+        method: "DELETE",
+        headers: myHeaders,
+    })
+        .then((response) => {
+            if (response.status === 200 || response.status === 204) {
+                console.log("Suppression réussie !");
+                messageForModal1.innerHTML = "Suppression réussie !";
+                messageForModal1.style.color = "green";
+                fetchGalleryElements();
+                displayElementsInArray(arrayElement);
+            } else if (response.status === 401) {
+                console.log("Non autorisé. Veuillez vous connecter.");
+                messageForModal1.innerHTML = "Non autorisé. Veuillez vous connecter.";
+                messageForModal1.style.color = "red";
+                throw new Error("Non autorisé");
+            } else if (response.status === 500) {
+                console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
+                messageForModal1.innerHTML = "Erreur interne du serveur. Veuillez réessayer ultérieurement.";
+                messageForModal1.style.color = "red";
+                throw new Error("Erreur interne du serveur");
+            } else {
+                console.log("Erreur inattendue :", response.status);
+                throw new Error("Erreur inattendue : " + response.status);
+            }
+        })
+        .catch((error) => {
+            console.error("Une erreur s'est produite lors de la requête DELETE :", error);
+        });
+};
+
 
 // Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
 function modal2() {
@@ -599,8 +633,41 @@ checkTokenForAdminMode();
 setupLogout();
 setupModalOpening();
 
+// Test pour savoir si la page ce recharche ou non dans la console //
 if (performance.navigation.type === 1) {
     console.log("La page a été rechargée");
   } else {
     console.log("La page n'a pas été rechargée");
-}
+};
+
+// Appel à l'API pour refresh la galerie principal //
+function fetchGalleryElements() {
+    const gallery = document.querySelector(".gallery");
+  
+    fetch("http://localhost:5678/api/works")
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Erreur de récupération des éléments de la galerie");
+            }
+        })
+        .then((data) => {
+            gallery.innerHTML = "";
+            data.forEach((element) => {
+            let figure = document.createElement("figure");
+            let img = document.createElement("img");
+            let figcaption = document.createElement("figcaption");
+            img.src = element.imageUrl;
+            img.alt = element.title;
+            figcaption.innerHTML = element.title;
+  
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            gallery.appendChild(figure);
+            });
+        })
+        .catch((error) => {
+            console.error("Une erreur s'est produite lors de la récupération des éléments de la galerie :", error);
+        });
+};
