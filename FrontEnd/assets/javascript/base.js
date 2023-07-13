@@ -47,7 +47,7 @@ function createFilterForHtml() {
     
 
         // Ajout de l'eventListener sur les filtres pour activation //
-        li.addEventListener('click', function () {
+        li.addEventListener("click", function () {
             const filters = document.querySelectorAll(".filter");
             filters.forEach(filter => {
                 filter.classList.remove("active");
@@ -85,7 +85,7 @@ function createCardForHtml(category = 0) {
 };
 
 // Fonction qui désactive le bouton "entrer" sur le formulaire //
-function enterButtonDisableForBasePage () {
+function enterButtonDisableForBasePage() {
     const contactElement = document.querySelector("#contact");
 
     contactElement.addEventListener("keydown", function(event) {
