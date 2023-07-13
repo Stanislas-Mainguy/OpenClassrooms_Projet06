@@ -471,7 +471,10 @@ footer nav ul {
 }
 
 .block-button {
+	position: relative;
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex-direction: column;
 	gap: 23px;
 	margin-top: 38px;
@@ -540,6 +543,11 @@ footer nav ul {
 
 .modal-figures:hover .modal-icon {
 	display: flex;
+}
+
+.message-modal1 {
+	position: absolute;
+	margin-top: -110px;
 }
 
 /* Section de la modale 2 */
