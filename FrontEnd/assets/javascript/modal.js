@@ -504,6 +504,38 @@ function deleteElement(elementId, arrayElement) {
         });
 };
 
+// Appel à l'API pour refresh la galerie principal //
+function fetchGalleryElements() {
+    const gallery = document.querySelector(".gallery");
+  
+    fetch("http://localhost:5678/api/works")
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Erreur de récupération des éléments de la galerie");
+            }
+        })
+        .then((data) => {
+            gallery.innerHTML = "";
+            data.forEach((element) => {
+            let figure = document.createElement("figure");
+            let img = document.createElement("img");
+            let figcaption = document.createElement("figcaption");
+            img.src = element.imageUrl;
+            img.alt = element.title;
+            figcaption.innerHTML = element.title;
+  
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            gallery.appendChild(figure);
+            });
+        })
+        .catch((error) => {
+            console.error("Une erreur s'est produite lors de la récupération des éléments de la galerie :", error);
+        });
+};
+
 
 // Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
 function modal2() {
@@ -638,36 +670,4 @@ if (performance.navigation.type === 1) {
     console.log("La page a été rechargée");
   } else {
     console.log("La page n'a pas été rechargée");
-};
-
-// Appel à l'API pour refresh la galerie principal //
-function fetchGalleryElements() {
-    const gallery = document.querySelector(".gallery");
-  
-    fetch("http://localhost:5678/api/works")
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error("Erreur de récupération des éléments de la galerie");
-            }
-        })
-        .then((data) => {
-            gallery.innerHTML = "";
-            data.forEach((element) => {
-            let figure = document.createElement("figure");
-            let img = document.createElement("img");
-            let figcaption = document.createElement("figcaption");
-            img.src = element.imageUrl;
-            img.alt = element.title;
-            figcaption.innerHTML = element.title;
-  
-            figure.appendChild(img);
-            figure.appendChild(figcaption);
-            gallery.appendChild(figure);
-            });
-        })
-        .catch((error) => {
-            console.error("Une erreur s'est produite lors de la récupération des éléments de la galerie :", error);
-        });
 };
