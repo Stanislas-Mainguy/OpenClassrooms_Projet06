@@ -467,7 +467,6 @@ function displayElementsInArray(arrayElement) {
 // Fonction pour supprimer un élément //
 function deleteElement(elementId, arrayElement) {
     const messageForModal1 = document.querySelector(".message-modal1");
-    const gallery = document.querySelector(".gallery");
 
     let myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
