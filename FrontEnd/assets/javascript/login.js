@@ -1,14 +1,12 @@
 // Section des variables //
 const loginButton = document.querySelector("#login_button");
-const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
 const loginError = document.querySelector("#login-error");
 
 // Création de l'eventListener avec ses sous-sections //
 loginButton.addEventListener("click", function (event) {
     event.preventDefault();
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    const email = document.querySelector("#email").value;
+    const password = document.querySelector("#password").value;
     loginError.textContent = "";
 
     // Envoie de la requête de connection à L'API //

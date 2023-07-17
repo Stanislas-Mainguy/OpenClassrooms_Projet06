@@ -1,5 +1,43 @@
                             // SECTION POUR ALLER SUR LA PAGE DE L'ADMIN //
 
+// Fonction de création d'élément //                            
+function createElement(element, attributes = {}) {
+    let newElement = document.createElement(element);
+    if (attributes.id) {
+        newElement.id = attributes.id;
+    }
+    if (attributes.class && Array.isArray(attributes.class)) {
+        attributes.class.forEach(function(classList) {
+            newElement.classList.add(classList);
+    });
+    } else if (attributes.class) {
+        newElement.classList.add(attributes.class);
+    }
+    if (attributes.type) {
+        newElement.type = attributes.type;
+    }
+    if (attributes.text) {
+        newElement.innerText = attributes.text;
+    }
+    if (attributes.attribute) {
+        newElement.setAttribute(attributes.attribute[0], attributes.attribute[1]);
+    }
+    if (attributes.src) {
+        newElement.src = attributes.src;
+    }
+    if (attributes.alt) {
+        newElement.alt = attributes.alt;
+    }
+    return newElement;
+};
+
+// Fonction d'ajout pour les childs //
+function addChild(parent, ...children) {
+    children.forEach(function(child) {
+        parent.appendChild(child);
+    });
+};
+
 // Vérification du token dans le localStorage //
 function checkTokenForAdminMode() {
     const token = localStorage.getItem("token");
@@ -8,74 +46,39 @@ function checkTokenForAdminMode() {
     // S'il y a la présence d'un token, création des éléments et changement de style pour les éléments suivant //
     if (token) {
         // Section des constantes pour le changement de la page admin //
-        const editLogin = document.querySelector("#login_logout");
-        const editFiltres = document.querySelector(".block_filters");
-        const editHeader = document.querySelector("header");
         const editH2Project = document.querySelector(".admin-project-edit");
-        const figureEdit = document.querySelector(".figure-edit-element");
         const articleIntroEdit = document.querySelector(".intro");
         const footer = document.querySelector("footer");
 
         // Section de création des éléments admin //
-        let editMode = document.createElement("div");
-        editMode.id = "edit-mode";
+        let editMode = createElement("div",{ id: "edit-mode"});
+        let editContainer = createElement("div", {class: ["edit-container", "modal-opening"]});
+        let penIcon = createElement("i", { class: ["fa-regular", "fa-pen-to-square"]});
+        let spanEditMode = createElement("span", {class: "span-edit-mode", text: "Mode édition"});
+        let publishButtonChanges = createElement("button", {id: "publish-changes", class: "button_appearance", type: "button", text: "Publier les changements"});
+        let editPictureContainer = createElement("div", {class: "edit-picture"});
+        let editIntroContainer = createElement("div",{class:"edit-intro"});
+        let editProjectContainer = createElement("div", {class : "edit-project"});
+        let modalElement = createElement("aside", {id: "modal", attribute: ["aria-hidden","true"]});
+        let overlayElement = createElement("div",{id : "overlay", class:"close-modal"});
 
-        let editContainer = document.createElement("div");
-        editContainer.classList.add("edit-container", "modal-opening");
-
-        let penIcon = document.createElement("i");
-        penIcon.classList.add("fa-regular", "fa-pen-to-square");
-
-        let spanEditMode = document.createElement("span");
-        spanEditMode.classList.add("span-edit-mode");
-        spanEditMode.innerText = "Mode édition";
-
-        let publishButtonChanges = document.createElement("button");
-        publishButtonChanges.id = "publish-changes";
-        publishButtonChanges.classList.add("button_appearance");
-        publishButtonChanges.type = "button";
-        publishButtonChanges.innerText = "Publier les changements";
-
-        let editPictureContainer = document.createElement("div");
-        editPictureContainer.classList.add("edit-picture");
-
-        let spanModifier = document.createElement("span");
-        spanModifier.innerText = "modifier";
-
-        let editIntroContainer = document.createElement("div");
-        editIntroContainer.classList.add("edit-intro");
-
-        let editProjectContainer = document.createElement("div");
-        editProjectContainer.classList.add("edit-project");
-
-        let modalElement = document.createElement("aside");
-        modalElement.id = "modal";
-        modalElement.setAttribute("aria-hidden", "true");
-
-        let overlayElement = document.createElement("div");
-        overlayElement.id = "overlay";
-        overlayElement.classList.add("close-modal");
-
-        // Rattachement des éléments à leurs parents // 
-        editContainer.appendChild(penIcon);
-        editContainer.appendChild(spanEditMode);
-        editMode.appendChild(editContainer);
-        editMode.appendChild(publishButtonChanges);
+        // Rattachement des éléments à leurs parents //
+        addChild(editContainer, penIcon, spanEditMode); 
+        addChild(editMode, editContainer, publishButtonChanges);
         body.insertBefore(editMode, body.firstElementChild);
-        figureEdit.appendChild(editPictureContainer);
-        editPictureContainer.appendChild(createDivContainerWithElements());
+        addChild(document.querySelector(".figure-edit-element"), editPictureContainer);
+        addChild(editPictureContainer, createDivContainerWithElements());
         articleIntroEdit.insertBefore(editIntroContainer, articleIntroEdit.firstChild);
-        editIntroContainer.appendChild(createDivContainerWithElements());
-        editH2Project.appendChild(editProjectContainer);
-        editProjectContainer.appendChild(createDivContainerWithElements());
+        addChild(editIntroContainer, createDivContainerWithElements());
+        addChild(editH2Project, editProjectContainer);
+        addChild(editProjectContainer, createDivContainerWithElements());
         footer.insertAdjacentElement("afterend", modalElement);
         footer.insertAdjacentElement("afterend", overlayElement);
         
         // Modification de style pour certains éléments //
-        editLogin.innerText = "";
-        editLogin.textContent = "logout";
-        editFiltres.style.display = "none";
-        editHeader.style.marginTop = "97px";
+        document.querySelector("#login_logout").textContent = "logout";
+        document.querySelector(".block_filters").style.display = "none";
+        document.querySelector("header").style.marginTop = "97px";
         editH2Project.style.marginBottom = "92px";
         editH2Project.style.marginTop = "108px";
     };
@@ -83,97 +86,67 @@ function checkTokenForAdminMode() {
 
 // Fonction de création d'un block div pour intégration dans les appendChild au dessus //
 function createDivContainerWithElements() {
-    let divContainer = document.createElement("div");
-    divContainer.classList.add("div-edit-size", "modal-opening");
-    
-    let penIcon = document.createElement("i");
-    penIcon.classList.add("fa-regular", "fa-pen-to-square");
-    
-    let spanModifier = document.createElement("span");
-    spanModifier.innerText = "modifier";
+    let divContainer = createElement("div", {class: ["div-edit-size", "modal-opening"]});
+    let penIcon = createElement("i", {class: ["fa-regular", "fa-pen-to-square"]});
+    let spanModifier = createElement("span", {text: "modifier"});
 
-    divContainer.appendChild(penIcon);
-    divContainer.appendChild(spanModifier);
-
+    addChild(divContainer, penIcon, spanModifier);
+    
     return divContainer;
 };
 
                                 
                                 // SECTION DES EVENTLISTENER //
     
-// Ouverture de la modale //
-function setupModalOpening() {
-    const openModal = document.querySelectorAll(".modal-opening");
+// Ouverture de la modale  et fermeture //
+function setupModal(opening = true) {
+    let classModal = ".modal-opening";
+    let display = "block";
+    if(!opening) {
+        classModal = ".close-modal";
+        display = "none";
+    }
     const modalWindow = document.querySelector("#modal");
-    const overlay = document.querySelector("#overlay");
-
-    openModal.forEach(function(element) {
+    document.querySelectorAll(classModal).forEach(function(element) {
         element.addEventListener("click", function() {
-            modalWindow.style.display = "block";
-            modalWindow.setAttribute("aria-hidden", "false");
-            overlay.style.display = "block";
-            modal1(modalWindow);
-        });
-    });
-};
-
-// Fermeture de la modale //
-function setupModalClosing() {
-    const closeModal = document.querySelectorAll(".close-modal");
-    const modalWindow = document.querySelector("#modal");
-    const overlay = document.querySelector("#overlay");
-
-    closeModal.forEach(function(element) {
-        element.addEventListener("click", function() {
-            modalWindow.style.display = "none";
-            overlay.style.display = "none";
-            modalWindow.setAttribute("aria-hidden", "true");
+            modalWindow.style.display = display;
+            modalWindow.setAttribute("aria-hidden", !opening);
+            document.querySelector("#overlay").style.display = display;
+            if (opening) {
+                modal1(modalWindow);
+            };
         });
     });
 };
 
 // Changement de la modal1 en modal2 //
 function changeToModal2() {
-    const addElementButton = document.querySelector("#add-element");
-    const modalWindow = document.querySelector("#modal");
-    
-    addElementButton.addEventListener("click", function() {
-        modal2(modalWindow);
+    document.querySelector("#add-element").addEventListener("click", function() {
+        modal2();
     });
 };
 
 // Retour de la modal2 à la modal1 //
 function returnOnModal1() {
-    const blockArrowLeftIcon = document.querySelector(".return-modal1");
-    const modalWindow = document.querySelector("#modal");
-
-    blockArrowLeftIcon.addEventListener("click", function() {
-        modal1(modalWindow);
+    document.querySelector(".return-modal1").addEventListener("click", function() {
+        modal1(document.querySelector("#modal"));
     });
 };
 
 // Création de l'eventListener pour le logout //
 function setupLogout() {
-    const logout = document.querySelector("#login_logout");
-
-    logout.addEventListener("click", function() {
+    document.querySelector("#login_logout").addEventListener("click", function() {
         localStorage.clear();
         window.location.href = "./index.html";
     });
 };
 
-// EvenListener qui clean le storage quand la personne quitte la page internet //
-window.addEventListener("beforeunload", function() {
-    localStorage.clear();
-});
 
 
                                     // SECTION DES FONCTIONS //
 
 // Fonction de création de liste catégories pour la balise <select></select> de la modal2 //                                    
 function addListCategoriesInsideForm() {
-    let selectElementCategoriesList = document.querySelector("select");
-
     fetch("http://localhost:5678/api/categories")
         .then(response => {
             if (response.status === 200) {
@@ -188,8 +161,8 @@ function addListCategoriesInsideForm() {
             let option = document.createElement("option");
             option.value = category.id;
             option.text = category.name;
-    
-            selectElementCategoriesList.appendChild(option);
+            
+            addChild(document.querySelector("select"), option);
             });
         })
         .catch(error => {
@@ -200,38 +173,26 @@ function addListCategoriesInsideForm() {
 // Fonction qui insère l'image sélectionnée pour avoir un visuel //
 function showNewPicture() {
     const blockPictureAndButton = document.querySelector(".block-picture-and-button");
-    const fileInput = document.querySelector(".input-add-element");
-    const messageForModal2 = document.querySelector(".message-modal2");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
-    let optionNullCategories = document.querySelector("option");
 
-    fileInput.addEventListener("change", function (event) {
+    document.querySelector(".input-add-element").addEventListener("change", function (event) {
         if (event.target.files.length > 0) {
             blockPictureAndButton.innerHTML = "";
-            const selectedFile = event.target.files[0];
 
-            const divPictureNewAdd = document.createElement("div");
-            divPictureNewAdd.classList.add("block-new-element-picture");
+            const imgElement = createElement("img", {class: "add-new-picture-element-selected", src: URL.createObjectURL(event.target.files[0])});
+            const divPictureNewAdd = createElement("div", {class: "block-new-element-picture"});
+            
+            addChild(blockPictureAndButton, divPictureNewAdd);
+            addChild(divPictureNewAdd, imgElement);
 
-            const imgElement = document.createElement("img");
-            imgElement.classList.add("add-new-picture-element-selected");
-
-            const fileURL = URL.createObjectURL(selectedFile);
-            imgElement.src = fileURL;
-
-            blockPictureAndButton.appendChild(divPictureNewAdd);
-            divPictureNewAdd.appendChild(imgElement);
-
-            selectedImg = selectedFile;
-
-            messageForModal2.innerHTML = "Veuillez maintenant choisir un titre et une catégorie.";
+            document.querySelector(".message-modal2").innerHTML = "Veuillez maintenant choisir un titre et une catégorie.";
             titleInput.disabled = false;
             titleInput.placeholder = "";
             titleInput.style.cursor = "text";
             categorySelect.disabled = false;
             categorySelect.style.cursor = "pointer";
-            optionNullCategories.text = "";
+            document.querySelector("option").text = "";
 
             createPostRequest();
         };
@@ -241,15 +202,14 @@ function showNewPicture() {
 // Fonction de validation d'état pour les input du modal2 //
 function checkValidity() {
     const validatePicture = document.querySelector("#validate-picture");
-    const messageForModal2 = document.querySelector(".message-modal2");
-    const titleInput = document.querySelector(".add-title");
-    const categorySelect = document.querySelector(".add-categories");
-    if (selectedImg && titleInput.value.trim() !== "" && categorySelect.value !== "") {
+    if (document.querySelector(".input-add-element").files.length === 1 &&
+        document.querySelector(".add-title").value.trim() !== "" &&
+        document.querySelector(".add-categories").value !== "") {
       validatePicture.disabled = false;
       validatePicture.style.backgroundColor = "#1D6154";
       validatePicture.style.color = "#FFFFFF";
       validatePicture.style.cursor = "pointer";
-      messageForModal2.innerHTML = "Veuillez maintenant valider votre requête.";
+      document.querySelector(".message-modal2").innerHTML = "Veuillez maintenant valider votre requête.";
     } else {
       validatePicture.disabled = true;
       validatePicture.style.backgroundColor = "";
@@ -260,19 +220,17 @@ function checkValidity() {
 
 // Fonction pour l'envoi du fichier image //
 function createPostRequest() {
-    const validatePicture = document.querySelector("#validate-picture");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
     const messageForModal2 = document.querySelector(".message-modal2");
-    const gallery = document.querySelector(".gallery");
     const modalWindow = document.querySelector("#modal");
-    const overlay = document.querySelector("#overlay");
     
     titleInput.addEventListener("keyup", checkValidity);
     categorySelect.addEventListener("change", checkValidity);
   
-    validatePicture.addEventListener("click", function (e) {
+    document.querySelector("#validate-picture").addEventListener("click", function (e) {
         e.preventDefault();
+        const selectedImg = document.querySelector(".input-add-element").files[0];
         const formData = new FormData();
         let myHeaders = new Headers();
   
@@ -290,39 +248,41 @@ function createPostRequest() {
             if (response.status === 201) {
                 console.log("Création réussie !");
 
-                let figure = document.createElement("figure");
-                let img = document.createElement("img");
-                let figcaption = document.createElement("figcaption");
-                img.src = URL.createObjectURL(selectedImg);
-                let titleText = document.createTextNode(titleInput.value.trim());
+                let figure = createElement("figure");
+                let img = createElement("img", {src: selectedImg});
+                let figcaption = createElement("figcaption", {text: titleInput.value.trim()});
+                
                 modalWindow.style.display = "none";
-                overlay.style.display = "none";
+                document.querySelector("#overlay").style.display = "none";
                 modalWindow.setAttribute("aria-hidden", "true");
 
-                gallery.appendChild(figure);
-                figure.appendChild(img);
-                figure.appendChild(figcaption);
-                figcaption.appendChild(titleText);
-            } else if (response.status === 400) {
-                console.log("Requête incorrecte. Veuillez vérifier les données envoyées.");
-                messageForModal2.innerHTML = "Requête incorrecte. Veuillez vérifier les données envoyées.";
-                messageForModal2.style.color = "red";
-                throw new Error("Requête incorrecte");
-            } else if (response.status === 401) {
-                console.log("Non autorisé. Veuillez vous connecter.");
-                messageForModal2.innerHTML = "Non autorisé. Veuillez vous connecter.";
-                messageForModal2.style.color = "red";
-                throw new Error("Non autorisé");
-            } else if (response.status === 500) {
-                console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
-                messageForModal2.innerHTML = "Erreur interne du serveur. Veuillez réessayer ultérieurement.";
-                messageForModal2.style.color = "red";
-                throw new Error("Erreur interne du serveur");
+                addChild(document.querySelector(".gallery"), figure);
+                addChild(figure, img, figcaption);
             } else {
-                console.log("Erreur inattendue :", response.status);
-                messageForModal2.innerHTML = "Erreur inattendue !";
+                let message = "";
+                let messageThrow = "";
+                switch (response.status) {
+                    case 400:
+                        message ="Requête incorrecte. Veuillez vérifier les données envoyées.";
+                        messageThrow= "Requête incorrecte";
+                        break;
+                    case 401:
+                        message ="Non autorisé. Veuillez vous connecter.";
+                        messageThrow ="Non autorisé";
+                        break;
+                    case 500:
+                        message ="Erreur interne du serveur. Veuillez réessayer ultérieurement.";
+                        messageThrow = "Erreur interne du serveur";
+                        break;
+                    default:
+                        message ="Erreur inattendue !";
+                        messageThrow="Erreur inattendue !";
+                        break;
+                }
+                console.log(message);
+                messageForModal2.innerHTML = message;
                 messageForModal2.style.color = "red";
-                throw new Error("Erreur inattendue");
+                throw new Error(messageThrow);
             }
             })
             .catch((error) => {
@@ -331,13 +291,9 @@ function createPostRequest() {
     });
 };
   
-  
-
 // Fonction qui désactive le bouton "entrer" //
 function enterButtonDisable() {
-    const modal = document.querySelector("#modal");
-
-    modal.addEventListener("keydown", function(event) {
+    document.querySelector("#modal").addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
         };
@@ -349,60 +305,26 @@ function modal1(modalWindow) {
     modalWindow.innerHTML = "";
 
     // Création des éléments liés à l'ouverture de la modale //
-    let blockIcon = document.createElement("div");
-    blockIcon.classList.add("block-icon");
-
-    let blockCrossIcon = document.createElement("div");
-    blockCrossIcon.classList.add("block-cross-icon-and-arrow", "close-modal");
-
-    let crossIcon = document.createElement("i")
-    crossIcon.classList.add("fa-solid", "fa-xmark");
-
-    let modalContent = document.createElement("div");
-    modalContent.id = "modal-content";
-
-    let blockAddingElement = document.createElement("div");
-    blockAddingElement.classList.add("block-adding-element");
-
-    let modalTitle = document.createElement("h2");
-    modalTitle.classList.add("modal-title");
-    modalTitle.innerHTML = "Galerie photo";
-
-    let arrayElement = document.createElement("div");
-    arrayElement.id = "array-element";
-
-    let colorBar = document.createElement("div");
-    colorBar.classList.add("color-bar");
-
-    let blockButton = document.createElement("div");
-    blockButton.classList.add("block-button");
-
-    let messageForModal1 = document.createElement("div");
-    messageForModal1.classList.add("message-modal1");
-
-    let buttonAddElement = document.createElement("button");
-    buttonAddElement.id = "add-element";
-    buttonAddElement.classList.add("add-button", "button_appearance");
-    buttonAddElement.innerHTML = "Ajouter une photo";
-
-    let buttonDeleteAllElement = document.createElement("button");
-    buttonDeleteAllElement.id = "delet-all-element";
-    buttonDeleteAllElement.classList.add("delete-button");
-    buttonDeleteAllElement.innerHTML = "Supprimer la galerie";
+    let blockIcon = createElement("div", {class: "block-icon"});
+    let blockCrossIcon = createElement("div", {class: ["block-cross-icon-and-arrow", "close-modal"]});
+    let crossIcon = createElement("i", {class: ["fa-solid", "fa-xmark"]});
+    let modalContent = createElement("div", {id: "modal-content"});
+    let blockAddingElement = createElement("div", {class: "block-adding-element"});
+    let modalTitle = createElement("h2", {class: "modal-title", text: "Galerie photo"});
+    let arrayElement = createElement("div", {id: "array-element"});
+    let colorBar = createElement("div", {class: "color-bar"});
+    let blockButton = createElement("div", {class: "block-button"});
+    let messageForModal1 = createElement("div", {class: "message-modal1"});
+    let buttonAddElement = createElement("button", {id: "add-element", class: ["add-button", "button_appearance"], text: "Ajouter une photo"});
+    let buttonDeleteAllElement = createElement("button", {id: "delet-all-element", class: "delete-button", text: "Supprimer la galerie"});
 
     // Rattachement des éléments à leurs parents //
-    modalWindow.appendChild(blockIcon);
-    modalWindow.appendChild(modalContent);
-    blockIcon.appendChild(blockCrossIcon);
-    blockCrossIcon.appendChild(crossIcon);
-    modalContent.appendChild(blockAddingElement);
-    blockAddingElement.appendChild(modalTitle);
-    blockAddingElement.appendChild(arrayElement);
-    blockAddingElement.appendChild(colorBar);
-    blockAddingElement.appendChild(blockButton);
-    blockButton.appendChild(messageForModal1);
-    blockButton.appendChild(buttonAddElement);
-    blockButton.appendChild(buttonDeleteAllElement);
+    addChild(modalWindow, blockIcon, modalContent);
+    addChild(blockIcon, blockCrossIcon);
+    addChild(blockCrossIcon, crossIcon);
+    addChild(modalContent, blockAddingElement);
+    addChild(blockAddingElement, modalTitle, arrayElement, colorBar, blockButton);
+    addChild(blockButton, messageForModal1, buttonAddElement, buttonDeleteAllElement);
 
     // Changement de taille pour la modale //
     modalWindow.style.height = "auto";
@@ -411,7 +333,7 @@ function modal1(modalWindow) {
     displayElementsInArray(arrayElement);
 
     // Autres fonctions et configurations pour la modal //
-    setupModalClosing();
+    setupModal(false);
     changeToModal2();
     enterButtonDisable();
 };
@@ -423,37 +345,19 @@ function displayElementsInArray(arrayElement) {
         .then((data) => {
             arrayElement.innerHTML = "";
             data.forEach((element) => {
-                let figure = document.createElement("figure");
-                figure.classList.add("modal-figures");
-
-                let img = document.createElement("img");
-                img.classList.add("modal-pictures");
-                img.src = element.imageUrl;
-                img.alt = element.title;
-
-                let figcaption = document.createElement("figcaption");
-                figcaption.innerHTML = "éditer";
-
-                let blockIcon1 = document.createElement("div");
-                blockIcon1.classList.add("modal-icon", "multi-arrows");
-
-                let arrowIcon = document.createElement("i");
-                arrowIcon.classList.add("fa-solid", "fa-up-down-left-right");
-
-                let blockIcon2 = document.createElement("div");
-                blockIcon2.classList.add("modal-icon", "trash-icon");
-
-                let trashIcon = document.createElement("i");
-                trashIcon.classList.add("fa-regular", "fa-trash-can");
-
+                let figure = createElement("figure", {class: "modal-figures"});
+                let img = createElement("img", {class: "modal-pictures", src: element.imageUrl, alt: element.title});
+                let figcaption = createElement("figcaption", {text: "éditer"});
+                let blockIcon1 = createElement("div", {class: ["modal-icon", "multi-arrows"]});
+                let arrowIcon = createElement("i", {class: ["fa-solid", "fa-up-down-left-right"]});
+                let blockIcon2 = createElement("div", {class: ["modal-icon", "trash-icon"]});
+                let trashIcon = createElement("i", {class: ["fa-regular", "fa-trash-can"]});
+                
                 // Rattachement des éléments à leurs parents //
-                figure.appendChild(img);
-                figure.appendChild(figcaption);
-                figure.appendChild(blockIcon1);
-                figure.appendChild(blockIcon2);
-                blockIcon1.appendChild(arrowIcon);
-                blockIcon2.appendChild(trashIcon);
-                arrayElement.appendChild(figure);
+                addChild(figure, img, figcaption, blockIcon1, blockIcon2);
+                addChild(blockIcon1, arrowIcon);
+                addChild(blockIcon2, trashIcon);
+                addChild(arrayElement, figure);
 
                 // Ajout de l'eventListener sur l'icône de suppression //
                 blockIcon2.addEventListener("click", function (e) {
@@ -483,19 +387,26 @@ function deleteElement(elementId, arrayElement) {
                 messageForModal1.style.color = "green";
                 fetchGalleryElements();
                 displayElementsInArray(arrayElement);
-            } else if (response.status === 401) {
-                console.log("Non autorisé. Veuillez vous connecter.");
-                messageForModal1.innerHTML = "Non autorisé. Veuillez vous connecter.";
-                messageForModal1.style.color = "red";
-                throw new Error("Non autorisé");
-            } else if (response.status === 500) {
-                console.log("Erreur interne du serveur. Veuillez réessayer ultérieurement.");
-                messageForModal1.innerHTML = "Erreur interne du serveur. Veuillez réessayer ultérieurement.";
-                messageForModal1.style.color = "red";
-                throw new Error("Erreur interne du serveur");
             } else {
-                console.log("Erreur inattendue :", response.status);
-                throw new Error("Erreur inattendue : " + response.status);
+                let message = "";
+                let messageThrow = "";
+                switch (response.status) {
+                    case 401:
+                        message = "Non autorisé. Veuillez vous connecter.";
+                        messageThrow = "Non autorisé";
+                        break;
+                    case 500:
+                        message = "Erreur interne du serveur. Veuillez réessayer ultérieurement.";
+                        messageThrow = "Erreur interne du serveur";
+                        break;
+                    default:
+                        message = ("Erreur inattendue :", response.status);
+                        messageThrow = ("Erreur inattendue : " + response.status);
+                }    
+                console.log(message);
+                messageForModal1.innerHTML = message;
+                messageForModal1.style.color = "red";
+                throw new Error(messageThrow);
             }
         })
         .catch((error) => {
@@ -518,16 +429,12 @@ function fetchGalleryElements() {
         .then((data) => {
             gallery.innerHTML = "";
             data.forEach((element) => {
-            let figure = document.createElement("figure");
-            let img = document.createElement("img");
-            let figcaption = document.createElement("figcaption");
-            img.src = element.imageUrl;
-            img.alt = element.title;
-            figcaption.innerHTML = element.title;
-  
-            figure.appendChild(img);
-            figure.appendChild(figcaption);
-            gallery.appendChild(figure);
+            let figure = createElement("figure");
+            let img = createElement("img", {src: element.imageUrl, alt: element.title});
+            let figcaption = createElement("figcaption", {text: element.title});
+            
+            addChild(figure, img, figcaption);
+            addChild(gallery, figure);
             });
         })
         .catch((error) => {
@@ -538,27 +445,16 @@ function fetchGalleryElements() {
 
 // Changement de la modal1 au clique sur le bouton d'ajout pour passer à l'interface de la modal2 //
 function modal2() {
-    const modalWindow = document.querySelector("#modal");
     const modalContent = document.querySelector("#modal-content");
     const blockIcon = document.querySelector(".block-icon");
     modalContent.innerHTML = "";
 
     // Création des éléments liés à l'ouverture de la modale //
-    let blockArrowLeftIcon = document.createElement("div");
-    blockArrowLeftIcon.classList.add("block-cross-icon-and-arrow", "return-modal1");
-
-    let arrowLeft = document.createElement("i");
-    arrowLeft.classList.add("fa-solid", "fa-arrow-left-long");
-
-    let blockAddElementModal2 = document.createElement("div");
-    blockAddElementModal2.classList.add("block-add-element-modal2");
-
-    let modalTitle = document.createElement("h2");
-    modalTitle.classList.add("modal-title");
-    modalTitle.innerHTML = "Ajout photo";
-
-    let colorBar = document.createElement("div");
-    colorBar.classList.add("color-bar", "bar-modal2");
+    let blockArrowLeftIcon = createElement("div", {class: ["block-cross-icon-and-arrow", "return-modal1"]});
+    let arrowLeft = createElement("i", {class: ["fa-solid", "fa-arrow-left-long"]});
+    let blockAddElementModal2 = createElement("div", {class: "block-add-element-modal2"});
+    let modalTitle = createElement("h2", {class: "modal-title", text: "Ajout photo"});
+    let colorBar = createElement("div", {class: ["color-bar", "bar-modal2"]});
 
     let formAddPicture = document.createElement("form");
     formAddPicture.classList.add("form-add-picture");
@@ -566,19 +462,11 @@ function modal2() {
     formAddPicture.action = "#";
     formAddPicture.enctype = "multipart/form-data";
 
-    let blockPictureAndButton = document.createElement("div");
-    blockPictureAndButton.classList.add("block-picture-and-button");
+    let blockPictureAndButton = createElement("div", {class: "block-picture-and-button"});
+    let blockAddIcon = createElement("div", {class: "block-add-icon"});
+    let addPictureIcon = createElement("i", {class: ["fa-regular", "fa-image"]});
+    let styleInputAddElement = createElement("div", {class: ["button_appearance", "add-new-picture"], text: "+ Ajout photo"});
     
-    let blockAddIcon = document.createElement("div");
-    blockAddIcon.classList.add("block-add-icon");
-    
-    let addPictureIcon = document.createElement("i");
-    addPictureIcon.classList.add("fa-regular", "fa-image");
-
-    let styleInputAddElement = document.createElement("div");
-    styleInputAddElement.classList.add("button_appearance", "add-new-picture");
-    styleInputAddElement.innerHTML = "+ Ajout photo";
-
     let addPictureInput = document.createElement("input");
     addPictureInput.classList.add("input-add-element");
     addPictureInput.type = "file";
@@ -586,8 +474,7 @@ function modal2() {
     addPictureInput.maxSize = 4 * 1024 * 1024; // 4 Mo
     addPictureInput.placeholder = "+ Ajout photo";
 
-    let infoAddInput = document.createElement("p");
-    infoAddInput.innerHTML = "jpg, png : 4mo max";
+    let infoAddInput = createElement("p", {text: "jpg, png : 4mo max"});
 
     let labelAddTitle = document.createElement("label");
     labelAddTitle.classList.add("label-add-title");
@@ -619,9 +506,7 @@ function modal2() {
     optionNullCategories.value = "";
     optionNullCategories.text = "Veuillez d'abord choisir une image.";
 
-    let messageForModal2 = document.createElement("div");
-    messageForModal2.classList.add("message-modal2");
-    messageForModal2.innerHTML = "Veuillez sélectionner une image."
+    let messageForModal2 = createElement("div", {class: "message-modal2", text: "Veuillez sélectionner une image."}); 
 
     let validAddElement = document.createElement("input");
     validAddElement.classList.add("button_appearance");
@@ -632,27 +517,16 @@ function modal2() {
 
     // Rattachement des éléments à leurs parents //
     blockIcon.insertBefore(blockArrowLeftIcon, blockIcon.firstChild);
-    blockArrowLeftIcon.appendChild(arrowLeft);
-    modalContent.appendChild(blockAddElementModal2); 
-    blockAddElementModal2.appendChild(modalTitle);
-    blockAddElementModal2.appendChild(formAddPicture);
-    blockAddElementModal2.appendChild(colorBar);
-    blockAddElementModal2.appendChild(messageForModal2);
-    formAddPicture.appendChild(blockPictureAndButton);
-    formAddPicture.appendChild(labelAddTitle);
-    formAddPicture.appendChild(inputAddTitle);
-    formAddPicture.appendChild(labelSelectCategorie);
-    formAddPicture.appendChild(selectCategorie);
-    formAddPicture.appendChild(validAddElement);
-    selectCategorie.appendChild(optionNullCategories);
-    blockPictureAndButton.appendChild(blockAddIcon);
-    blockPictureAndButton.appendChild(addPictureInput);
-    blockPictureAndButton.appendChild(styleInputAddElement);
-    blockPictureAndButton.appendChild(infoAddInput);
-    blockAddIcon.appendChild(addPictureIcon);
+    addChild(blockArrowLeftIcon, arrowLeft);
+    addChild(modalContent, blockAddElementModal2);
+    addChild(blockAddElementModal2, modalTitle, formAddPicture, colorBar, messageForModal2); 
+    addChild(formAddPicture, blockPictureAndButton, labelAddTitle, inputAddTitle, labelSelectCategorie, selectCategorie, validAddElement);
+    addChild(selectCategorie, optionNullCategories);
+    addChild(blockPictureAndButton, blockAddIcon, addPictureInput, styleInputAddElement, infoAddInput);
+    addChild(blockAddIcon, addPictureIcon);
 
     // Changement de style pour des éléments de la modal2 //
-    modalWindow.style.height = "670px";
+    document.querySelector("#modal").style.height = "670px";
     blockIcon.style.justifyContent = "space-between";
 
     addListCategoriesInsideForm();
@@ -662,11 +536,4 @@ function modal2() {
 
 checkTokenForAdminMode();
 setupLogout();
-setupModalOpening();
-
-// Test pour savoir si la page ce recharche ou non dans la console //
-if (performance.navigation.type === 1) {
-    console.log("La page a été rechargée");
-  } else {
-    console.log("La page n'a pas été rechargée");
-};
+setupModal(true);
