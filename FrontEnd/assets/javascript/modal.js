@@ -205,16 +205,16 @@ function checkValidity() {
     if (document.querySelector(".input-add-element").files.length === 1 &&
         document.querySelector(".add-title").value.trim() !== "" &&
         document.querySelector(".add-categories").value !== "") {
-      validatePicture.disabled = false;
-      validatePicture.style.backgroundColor = "#1D6154";
-      validatePicture.style.color = "#FFFFFF";
-      validatePicture.style.cursor = "pointer";
-      document.querySelector(".message-modal2").innerHTML = "Veuillez maintenant valider votre requête.";
+        validatePicture.disabled = false;
+        validatePicture.style.backgroundColor = "#1D6154";
+        validatePicture.style.color = "#FFFFFF";
+        validatePicture.style.cursor = "pointer";
+        document.querySelector(".message-modal2").innerHTML = "Veuillez maintenant valider votre requête.";
     } else {
-      validatePicture.disabled = true;
-      validatePicture.style.backgroundColor = "";
-      validatePicture.style.color = "";
-      validatePicture.style.cursor = "";
+        validatePicture.disabled = true;
+        validatePicture.style.backgroundColor = "";
+        validatePicture.style.color = "";
+        validatePicture.style.cursor = "";
     };
 };
 
