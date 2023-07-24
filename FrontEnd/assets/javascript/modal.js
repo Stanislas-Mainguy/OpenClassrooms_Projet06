@@ -175,15 +175,16 @@ function showNewPicture() {
     const blockPictureAndButton = document.querySelector(".block-picture-and-button");
     const titleInput = document.querySelector(".add-title");
     const categorySelect = document.querySelector(".add-categories");
+    const inputAddElement = document.querySelector(".input-add-element");
 
-    document.querySelector(".input-add-element").addEventListener("change", function (event) {
+    inputAddElement.addEventListener("change", function (event) {
         if (event.target.files.length > 0) {
             blockPictureAndButton.innerHTML = "";
 
             const imgElement = createElement("img", {class: "add-new-picture-element-selected", src: URL.createObjectURL(event.target.files[0])});
             const divPictureNewAdd = createElement("div", {class: "block-new-element-picture"});
             
-            addChild(blockPictureAndButton, divPictureNewAdd);
+            addChild(blockPictureAndButton, divPictureNewAdd, inputAddElement);
             addChild(divPictureNewAdd, imgElement);
 
             document.querySelector(".message-modal2").innerHTML = "Veuillez maintenant choisir un titre et une catégorie.";
@@ -193,6 +194,7 @@ function showNewPicture() {
             categorySelect.disabled = false;
             categorySelect.style.cursor = "pointer";
             document.querySelector("option").text = "";
+            inputAddElement.style.display = "none";
 
             createPostRequest();
         };
@@ -249,7 +251,7 @@ function createPostRequest() {
                 console.log("Création réussie !");
 
                 let figure = createElement("figure");
-                let img = createElement("img", {src: selectedImg});
+                let img = createElement("img", {src: URL.createObjectURL(selectedImg)});
                 let figcaption = createElement("figcaption", {text: titleInput.value.trim()});
                 
                 modalWindow.style.display = "none";
